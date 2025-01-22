@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 
 export default function LoginForm() {
     const router = useRouter();
@@ -65,69 +66,75 @@ export default function LoginForm() {
         setToken(data.token);
         toast.success(data.message);
 
-        // setTimeout(() => {
-        //     router.push("/dashboard");
-        // }, 1000);
+        setTimeout(() => {
+            router.push("/dashboard");
+        }, 1000);
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center">
-            <Card className="w-11/12 sm:w-96 bg-card">
-                <CardHeader>
-                    <CardTitle className="text-3xl font-bold">
-                        Learn <span className="text-primary">Sphere</span>.
-                    </CardTitle>
-                    <CardDescription>
-                        The next generation student tracking system.
-                    </CardDescription>
-                </CardHeader>
+        <>
+            <BackgroundBeams />
 
-                <CardContent>
-                    <form onSubmit={handleLogin} className="space-y-5">
-                        <div className="space-y-3">
-                            <Select
-                                defaultValue={"student"}
-                                onValueChange={(userType: UserType) =>
-                                    (userTypeRef.current = userType)
-                                }
-                            >
-                                <SelectTrigger id="userType">
-                                    <SelectValue placeholder="Select user type" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="student">
-                                        Student
-                                    </SelectItem>
-                                    <SelectItem value="teacher">
-                                        Teacher
-                                    </SelectItem>
-                                    <SelectItem value="admin">Admin</SelectItem>
-                                </SelectContent>
-                            </Select>
+            <div className="relative z-50 min-h-screen flex items-center justify-center">
+                <Card className="w-11/12 sm:w-96 shadow-[0_0.5rem_1rem] shadow-gray-200">
+                    <CardHeader>
+                        <CardTitle className="text-3xl font-bold">
+                            Learn <span className="text-primary">Sphere</span>.
+                        </CardTitle>
+                        <CardDescription>
+                            The next generation student tracking system.
+                        </CardDescription>
+                    </CardHeader>
 
-                            <Input
-                                id="email"
-                                type="email"
-                                placeholder="Email"
-                                ref={emailRef}
-                                value={emailRef?.current?.value}
-                            />
+                    <CardContent>
+                        <form onSubmit={handleLogin} className="space-y-5">
+                            <div className="space-y-3">
+                                <Select
+                                    defaultValue={"student"}
+                                    onValueChange={(userType: UserType) =>
+                                        (userTypeRef.current = userType)
+                                    }
+                                >
+                                    <SelectTrigger id="userType">
+                                        <SelectValue placeholder="Select user type" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="student">
+                                            Student
+                                        </SelectItem>
+                                        <SelectItem value="teacher">
+                                            Teacher
+                                        </SelectItem>
+                                        <SelectItem value="admin">
+                                            Admin
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
 
-                            <Input
-                                id="password"
-                                type="password"
-                                placeholder="Password"
-                                ref={passwordRef}
-                                value={passwordRef?.current?.value}
-                            />
-                        </div>
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="Email"
+                                    ref={emailRef}
+                                    value={emailRef?.current?.value}
+                                />
 
-                        <Button type="submit" className="w-full">
-                            Login
-                        </Button>
-                    </form>
-                </CardContent>
-            </Card>
-        </div>
+                                <Input
+                                    id="password"
+                                    type="password"
+                                    placeholder="Password"
+                                    ref={passwordRef}
+                                    value={passwordRef?.current?.value}
+                                />
+                            </div>
+
+                            <Button type="submit" className="w-full">
+                                Login
+                            </Button>
+                        </form>
+                    </CardContent>
+                </Card>
+            </div>
+        </>
     );
 }
