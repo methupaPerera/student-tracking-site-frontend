@@ -19,16 +19,15 @@ export function removeToken() {
 }
 
 export async function verifyToken(token: string) {
-    const response = await fetch(
-        process.env.NEXT_PUBLIC_API_URL + "/api/auth",
-        {
-            method: "GET",
-            headers: {
-                authorization: token,
-                "Content-Type": "application/json",
-            },
-        }
-    );
+    const url = process.env.NEXT_PUBLIC_API_URL + "/api/auth";
+    
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+            authorization: token,
+            "Content-Type": "application/json",
+        },
+    });
 
     const data = await response.json();
 
