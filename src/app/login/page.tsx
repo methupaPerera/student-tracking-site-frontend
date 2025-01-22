@@ -26,6 +26,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { BackgroundBeams } from "@/components/ui/background-beams";
+import { BlurFade } from "@/components/ui/blur-fade";
 
 export default function LoginForm() {
     const router = useRouter();
@@ -75,66 +76,69 @@ export default function LoginForm() {
         <>
             <BackgroundBeams />
 
-            <div className="relative z-50 min-h-screen flex items-center justify-center">
-                <Card className="w-11/12 sm:w-96 shadow-[0_0.5rem_1rem] shadow-gray-200">
-                    <CardHeader>
-                        <CardTitle className="text-3xl font-bold">
-                            Learn <span className="text-primary">Sphere</span>.
-                        </CardTitle>
-                        <CardDescription>
-                            The next generation student tracking system.
-                        </CardDescription>
-                    </CardHeader>
+            <BlurFade>
+                <div className="relative z-50 min-h-screen flex items-center justify-center">
+                    <Card className="w-11/12 sm:w-96 shadow-[0_0.5rem_1rem] shadow-gray-200">
+                        <CardHeader>
+                            <CardTitle className="text-3xl font-bold">
+                                Learn{" "}
+                                <span className="text-primary">Sphere</span>.
+                            </CardTitle>
+                            <CardDescription>
+                                The next generation student tracking system.
+                            </CardDescription>
+                        </CardHeader>
 
-                    <CardContent>
-                        <form onSubmit={handleLogin} className="space-y-5">
-                            <div className="space-y-3">
-                                <Select
-                                    defaultValue={"student"}
-                                    onValueChange={(userType: UserType) =>
-                                        (userTypeRef.current = userType)
-                                    }
-                                >
-                                    <SelectTrigger id="userType">
-                                        <SelectValue placeholder="Select user type" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="student">
-                                            Student
-                                        </SelectItem>
-                                        <SelectItem value="teacher">
-                                            Teacher
-                                        </SelectItem>
-                                        <SelectItem value="admin">
-                                            Admin
-                                        </SelectItem>
-                                    </SelectContent>
-                                </Select>
+                        <CardContent>
+                            <form onSubmit={handleLogin} className="space-y-5">
+                                <div className="space-y-3">
+                                    <Select
+                                        defaultValue={"student"}
+                                        onValueChange={(userType: UserType) =>
+                                            (userTypeRef.current = userType)
+                                        }
+                                    >
+                                        <SelectTrigger id="userType">
+                                            <SelectValue placeholder="Select user type" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="student">
+                                                Student
+                                            </SelectItem>
+                                            <SelectItem value="teacher">
+                                                Teacher
+                                            </SelectItem>
+                                            <SelectItem value="admin">
+                                                Admin
+                                            </SelectItem>
+                                        </SelectContent>
+                                    </Select>
 
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    placeholder="Email"
-                                    ref={emailRef}
-                                    value={emailRef?.current?.value}
-                                />
+                                    <Input
+                                        id="email"
+                                        type="email"
+                                        placeholder="Email"
+                                        ref={emailRef}
+                                        value={emailRef?.current?.value}
+                                    />
 
-                                <Input
-                                    id="password"
-                                    type="password"
-                                    placeholder="Password"
-                                    ref={passwordRef}
-                                    value={passwordRef?.current?.value}
-                                />
-                            </div>
+                                    <Input
+                                        id="password"
+                                        type="password"
+                                        placeholder="Password"
+                                        ref={passwordRef}
+                                        value={passwordRef?.current?.value}
+                                    />
+                                </div>
 
-                            <Button type="submit" className="w-full">
-                                Login
-                            </Button>
-                        </form>
-                    </CardContent>
-                </Card>
-            </div>
+                                <Button type="submit" className="w-full">
+                                    Login
+                                </Button>
+                            </form>
+                        </CardContent>
+                    </Card>
+                </div>
+            </BlurFade>
         </>
     );
 }
