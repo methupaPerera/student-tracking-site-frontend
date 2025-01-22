@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { BlurFade } from "@/components/ui/blur-fade";
+import { LuLogIn } from "react-icons/lu";
 
 export default function LoginForm() {
     const router = useRouter();
@@ -133,6 +134,7 @@ export default function LoginForm() {
 
                                 <Button type="submit" className="w-full">
                                     Login
+                                    <LuLogIn />
                                 </Button>
                             </form>
                         </CardContent>

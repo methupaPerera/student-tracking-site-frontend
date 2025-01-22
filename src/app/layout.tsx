@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<Children>) {
     return (
         <html lang="en">
-            <body className={`${poppins.className} antialiased`}>
+            <body className={`${poppins.className} antialiased text-foreground`}>
                 <SessionProvider>
                     {children}
                     <Toaster position="bottom-right" />
