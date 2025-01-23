@@ -3,7 +3,6 @@
 import type { UserType } from "@/types/auth";
 
 import { useRef } from "react";
-import { useRouter } from "next/navigation";
 import { setToken } from "@/lib/utils";
 import makeFetch from "@/lib/makeFetch";
 
@@ -25,13 +24,11 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { BackgroundBeams } from "@/components/ui/background-beams";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { LuLogIn } from "react-icons/lu";
+import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 
 export default function LoginForm() {
-    const router = useRouter();
-
     const userTypeRef = useRef<UserType>("student");
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -75,17 +72,15 @@ export default function LoginForm() {
         });
 
         setTimeout(() => {
-            router.push("/dashboard");
+            location.href = "/dashboard";
         }, 1000);
     };
 
     return (
-        <>
-            <BackgroundBeams />
-
+        <BackgroundBeamsWithCollision className="background max-h-screen">
             <BlurFade>
-                <div className="relative z-50 min-h-screen flex items-center justify-center">
-                    <Card className="w-11/12 sm:w-96 shadow-[0_0.5rem_1rem] shadow-gray-200">
+                <div className="relative z-[1000] min-h-screen flex items-center justify-center">
+                    <Card className="w-11/12 sm:w-96 shadow-[0_0.5rem_1rem] shadow-gray-700/10">
                         <CardHeader>
                             <CardTitle className="text-3xl font-bold">
                                 Learn{" "}
@@ -126,7 +121,6 @@ export default function LoginForm() {
                                         type="email"
                                         placeholder="Email"
                                         ref={emailRef}
-                                        value={emailRef?.current?.value}
                                     />
 
                                     <Input
@@ -134,7 +128,6 @@ export default function LoginForm() {
                                         type="password"
                                         placeholder="Password"
                                         ref={passwordRef}
-                                        value={passwordRef?.current?.value}
                                     />
                                 </div>
 
@@ -147,6 +140,6 @@ export default function LoginForm() {
                     </Card>
                 </div>
             </BlurFade>
-        </>
+        </BackgroundBeamsWithCollision>
     );
 }

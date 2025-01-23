@@ -1,6 +1,10 @@
 "use client";
 
-import sidebarData from "@/data/sidebarData";
+import {
+    adminSidebarData,
+    studentSidebarData,
+    teacherSidebarData,
+} from "@/data/sidebarData";
 import { useSession } from "@/context/Session";
 
 // Importing components.
@@ -33,6 +37,14 @@ import FeatureHighlightCard from "./key-feature-card";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const session = useSession();
+
+    const sidebarData =
+        session?.user?.userType === "admin"
+            ? adminSidebarData
+            : session?.user?.userType === "teacher"
+            ? teacherSidebarData
+            : studentSidebarData;
+            
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
@@ -43,16 +55,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SidebarGroup>
                     <SidebarGroupLabel>General</SidebarGroupLabel>
 
-                    <SidebarMenu>
+                    <SidebarMenu className="parent-container">
                         {sidebarData.map((item) => {
-                            if (
-                                (item.title === "Users" ||
-                                    item.title === "Settings") &&
-                                session?.user.userType !== "admin"
-                            ) {
-                                return;
-                            }
-
                             return (
                                 <Collapsible
                                     key={item.title}

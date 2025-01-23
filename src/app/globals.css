@@ -81,18 +81,21 @@
     }
     body {
         @apply bg-background text-foreground;
-        background-color: hsla(0, 0%, 100%, 0);
-        background-image: radial-gradient(
-                at 100% 99%,
-                hsla(221, 82%, 53%, 0.27) 0px,
-                transparent 50%
-            ),
-            radial-gradient(
-                at 0% 0%,
-                hsla(221, 82%, 53%, 0.11) 0px,
-                transparent 50%
-            );
     }
+}
+
+.background {
+    background-color: hsla(0, 0%, 100%, 0);
+    background-image: radial-gradient(
+            at 100% 99%,
+            rgba(37, 99, 233, 0.27) 0px,
+            transparent 50%
+        ),
+        radial-gradient(
+            at 0% 0%,
+            hsla(221, 82%, 53%, 0.11) 0px,
+            transparent 50%
+        );
 }
 
 ::-webkit-scrollbar {
@@ -112,4 +115,15 @@
 
 ::-webkit-scrollbar-thumb:hover {
     background: #6d6d6d;
+}
+
+.parent-container {
+    container-type: inline-size;
+    container-name: card-container;
+}
+
+@container card-container (max-width: 200px) {
+    .feature-highlight-card {
+        @apply hidden;
+    }
 }
