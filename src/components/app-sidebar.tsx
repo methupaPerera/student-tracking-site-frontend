@@ -44,9 +44,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             : session?.user?.userType === "teacher"
             ? teacherSidebarData
             : studentSidebarData;
-            
+
     return (
-        <Sidebar collapsible="icon" {...props}>
+        <Sidebar variant="floating" collapsible="icon" {...props}>
             <SidebarHeader>
                 <SidebarHead />
             </SidebarHeader>

@@ -50,7 +50,7 @@ export default function Page({ children }: Children) {
             <AppSidebar />
 
             <SidebarInset>
-                <div className="flex justify-between items-center bg-muted border-b-[1px]">
+                <div className="flex justify-between items-center border-b-[1px]">
                     <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
                         <div className="flex items-center gap-2 px-4">
                             <SidebarTrigger className="-ml-1" />
@@ -77,17 +77,17 @@ export default function Page({ children }: Children) {
                     </header>
 
                     <div className="flex items-center gap-2 text-gray-700 px-6">
-                        <div className="bg-white p-2 border-[1px] rounded-full relative">
+                        <div className="p-2 border-[1px] rounded-full relative cursor-pointer bg-muted">
                             <GoBell size={18} />
                             <div className="right-2.5 top-2 size-[5px] rounded-full absolute bg-green-500 animate-ping"></div>
                         </div>
-                        <div className="bg-white p-2 border-[1px] rounded-full">
+                        <div className="p-2 border-[1px] rounded-full cursor-pointer bg-muted">
                             <IoMailOutline size={20} />
                         </div>
                     </div>
                 </div>
 
-                {children}
+                <div>{children}</div>
             </SidebarInset>
         </SidebarProvider>
     );
