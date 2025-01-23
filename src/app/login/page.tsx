@@ -48,6 +48,8 @@ export default function LoginForm() {
             return;
         }
 
+        const tid = toast.loading("Logging in...");
+
         const res = await makeFetch("/api/auth/login", {
             method: "POST",
             headers: {
@@ -60,13 +62,17 @@ export default function LoginForm() {
 
         if (!res.ok) {
             data.errors.forEach((error: string) => {
-                toast.error(error);
+                toast.error(error, {
+                    id: tid,
+                });
             });
             return;
         }
 
         setToken(data.token);
-        toast.success(data.message);
+        toast.success(data.message, {
+            id: tid,
+        });
 
         setTimeout(() => {
             router.push("/dashboard");
