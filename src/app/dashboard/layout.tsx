@@ -19,6 +19,7 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { IoMailOutline } from "react-icons/io5";
 import { GoBell } from "react-icons/go";
+import Link from "next/link";
 
 export default function Page({ children }: Children) {
     const pathname = usePathname();
@@ -61,8 +62,10 @@ export default function Page({ children }: Children) {
                             <Breadcrumb>
                                 <BreadcrumbList>
                                     <BreadcrumbItem className="hidden md:block">
-                                        <BreadcrumbLink href="/dashboard">
-                                            Dashboard
+                                        <BreadcrumbLink asChild>
+                                            <Link href="/dashboard">
+                                                Dashboard
+                                            </Link>
                                         </BreadcrumbLink>
                                     </BreadcrumbItem>
                                     <BreadcrumbSeparator className="hidden md:block" />
