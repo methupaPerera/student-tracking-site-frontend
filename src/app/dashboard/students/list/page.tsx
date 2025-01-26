@@ -1,8 +1,8 @@
 "use client";
 
-import type { Teacher } from "@/types/teacher";
+import type { Student } from "@/types/student";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -34,9 +34,10 @@ import {
 } from "@/components/ui/table";
 import { FaPlus } from "react-icons/fa6";
 import Link from "next/link";
-import TeacherRegistrationForm from "../forms/teacher-register";
+import { useSession } from "@/context/Session";
+import makeFetch from "@/lib/makeFetch";
 
-export const columns: ColumnDef<Teacher>[] = [
+export const columns: ColumnDef<Student>[] = [
     // {
     //     id: "select",
     //     header: ({ table }) => (
@@ -63,10 +64,8 @@ export const columns: ColumnDef<Teacher>[] = [
     // },
     {
         accessorKey: "user_id",
-        header: "Teacher Id",
-        cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("user_id")}</div>
-        ),
+        header: "Student Id",
+        cell: ({ row }) => <div>{row.getValue("user_id")}</div>,
     },
     {
         accessorKey: "name",
@@ -76,10 +75,10 @@ export const columns: ColumnDef<Teacher>[] = [
         ),
     },
     {
-        accessorKey: "inChargeOf",
-        header: "In Charge Of",
+        accessorKey: "class",
+        header: "Class",
         cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("inChargeOf")}</div>
+            <div className="capitalize">{row.getValue("class")}</div>
         ),
     },
     {
@@ -90,12 +89,14 @@ export const columns: ColumnDef<Teacher>[] = [
         ),
     },
     {
-        accessorKey: "phone",
-        header: () => <div className="text-right">Phone</div>,
+        accessorKey: "dateOfBirth",
+        header: () => <div className="text-right">Date Of Birth</div>,
         cell: ({ row }) => {
             return (
                 <div className="text-right font-medium">
-                    {row.getValue("phone")}
+                    {new Date(row.getValue("dateOfBirth")).toLocaleDateString(
+                        "en-CA"
+                    )}
                 </div>
             );
         },
@@ -104,7 +105,9 @@ export const columns: ColumnDef<Teacher>[] = [
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => {
-            const teacher = row.original;
+            const session = useSession();
+
+            const student = row.original;
 
             return (
                 <DropdownMenu>
@@ -121,22 +124,26 @@ export const columns: ColumnDef<Teacher>[] = [
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <Link
                             className="w-full"
-                            href={`/dashboard/users/teachers/${teacher.user_id}`}
+                            href={`/dashboard/users/students/${student.user_id}`}
                         >
                             <Button
                                 className="w-full"
                                 size="sm"
                                 variant="secondary"
                             >
-                                Teacher Profile
+                                Student Profile
                             </Button>
                         </Link>
-                        <Button size="sm" variant="secondary">
-                            Edit Details
-                        </Button>
-                        <Button size="sm" variant="destructive">
-                            Clear Profile
-                        </Button>
+                        {session?.user.userType === "admin" && (
+                            <>
+                                <Button size="sm" variant="secondary">
+                                    Edit Details
+                                </Button>
+                                <Button size="sm" variant="destructive">
+                                    Clear Profile
+                                </Button>
+                            </>
+                        )}
                     </DropdownMenuContent>
                 </DropdownMenu>
             );
@@ -144,10 +151,21 @@ export const columns: ColumnDef<Teacher>[] = [
     },
 ];
 
-export default function TeachersTable({ data }: { data: Teacher[] }) {
+export default function StudentsTable() {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [rowSelection, setRowSelection] = useState({});
+
+    const [data, setData] = useState<Student[]>([]);
+
+    useEffect(() => {
+        makeFetch("/api/teacher/students")
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                setData(data.students);
+            });
+    }, []);
 
     const table = useReactTable({
         data,
@@ -169,7 +187,7 @@ export default function TeachersTable({ data }: { data: Teacher[] }) {
     // console.log(table.getSelectedRowModel().flatRows.map((row) => row.original));
 
     return (
-        <div className="w-full">
+        <div className="w-full px-4">
             <div className="flex items-center justify-between py-4">
                 <Input
                     type="text"
@@ -187,7 +205,9 @@ export default function TeachersTable({ data }: { data: Teacher[] }) {
                     className="w-96"
                 />
 
-                <TeacherRegistrationForm />
+                <p className="text-sm text-gray-500">
+                    Students of Class {data?.[0]?.["class"]}
+                </p>
             </div>
 
             <div className="rounded-md border">

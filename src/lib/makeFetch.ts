@@ -15,7 +15,7 @@ interface fetchOptions extends RequestInit {
 	headers?: Record<string, string>;
 }
 
-const apiUrl = "https://student-tracking-site-backend.vercel.app";
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export default async function makeFetch(
 	url: string,

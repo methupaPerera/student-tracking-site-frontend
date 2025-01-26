@@ -56,74 +56,30 @@ export const adminSidebarData = [
 
 export const teacherSidebarData = [
     {
-        title: "Dashboard",
-        url: "/dashboard",
-        icon: MdDashboard,
-        isActive: true,
-        items: [
-            {
-                title: "Overview",
-                url: "/dashboard",
-            },
-            {
-                title: "My Classes",
-                url: "/dashboard/classes",
-            },
-        ],
-    },
-    {
         title: "Students",
         url: "/dashboard/students",
         isActive: true,
         icon: FaUsers,
         items: [
             {
-                title: "Student List",
+                title: "My Student List",
                 url: "/dashboard/students/list",
             },
             {
-                title: "Performance",
-                url: "/dashboard/students/performance",
-            },
-            {
-                title: "Attendance",
+                title: "Mark Attendance",
                 url: "/dashboard/students/attendance",
             },
         ],
     },
     {
-        title: "Academic",
-        url: "/dashboard/academic",
-        isActive: true,
-        icon: GiBookshelf,
-        items: [
-            {
-                title: "Courses",
-                url: "/dashboard/academic/courses",
-            },
-            {
-                title: "Assignments",
-                url: "/dashboard/academic/assignments",
-            },
-            {
-                title: "Gradebook",
-                url: "/dashboard/academic/gradebook",
-            },
-        ],
-    },
-    {
-        title: "Profile",
-        url: "/dashboard/profile",
+        title: "Settings",
+        url: "/dashboard/settings",
         isActive: true,
         icon: FaUserCircle,
         items: [
             {
-                title: "Personal Info",
-                url: "/dashboard/profile",
-            },
-            {
-                title: "Settings",
-                url: "/dashboard/profile/settings",
+                title: "General",
+                url: "/dashboard/users/teachers/settings",
             },
         ],
     },

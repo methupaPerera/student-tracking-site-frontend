@@ -4,9 +4,10 @@ export type Teacher = {
     password: string;
     name: string;
     phone: string;
+    inChargeOf: string;
     subjects: {
         subjectName: string;
-        gradeLevels: number[];
+        classes: string[];
     }[];
     createdAt: Date;
     updatedAt: Date;

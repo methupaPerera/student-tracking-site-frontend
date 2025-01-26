@@ -29,7 +29,7 @@ import { LuLogIn } from "react-icons/lu";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 
 export default function LoginForm() {
-    const userTypeRef = useRef<UserType>("student");
+    const userTypeRef = useRef<UserType>("teacher");
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -115,7 +115,7 @@ export default function LoginForm() {
     return (
         <BackgroundBeamsWithCollision className="background h-screen">
             <BlurFade>
-                <div className="relative z-[1000] min-h-screen flex items-center justify-center">
+                <div className="relative z-[1000] h-screen flex items-center justify-center">
                     <Button
                         onClick={guestLogin}
                         className="absolute bottom-2 right-[50%] translate-x-[50%] z-50"
@@ -138,7 +138,7 @@ export default function LoginForm() {
                             <form onSubmit={handleLogin} className="space-y-5">
                                 <div className="space-y-3">
                                     <Select
-                                        defaultValue={"student"}
+                                        defaultValue={"teacher"}
                                         onValueChange={(userType: UserType) =>
                                             (userTypeRef.current = userType)
                                         }
@@ -147,9 +147,9 @@ export default function LoginForm() {
                                             <SelectValue placeholder="Select user type" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="student">
+                                            {/* <SelectItem value="student">
                                                 Student
-                                            </SelectItem>
+                                            </SelectItem> */}
                                             <SelectItem value="teacher">
                                                 Teacher
                                             </SelectItem>

@@ -42,6 +42,15 @@ export default function Page({ children }: Children) {
         case "/dashboard/settings":
             activePage = "Settings";
             break;
+        case "/dashboard/students/list":
+            activePage = "Student List";
+            break;
+        case "/dashboard/users/teachers/settings":
+            activePage = "Settings";
+            break;
+        case "/dashboard/students/attendance":
+            activePage = "Mark Attendance";
+            break;
     }
 
     if (pathname.includes("/dashboard/users/students")) {

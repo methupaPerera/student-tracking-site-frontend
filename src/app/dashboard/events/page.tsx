@@ -76,29 +76,27 @@ const events: EventProp[] = [
 
 export default function EventsPage() {
     return (
-        <div className="py-4 pr-4 pl-2">
+        <div className="p-4">
             <div className="mb-3 flex justify-between items-center">
                 <h2 className="text-lg font-medium">Upcoming Events</h2>
             </div>
-            <div className="grid grid-cols-3 gap-4">
-                <div className="col-span-2">
+
+            <div className="flex flex-col md:flex-row gap-4">
+                <div className="w-full md:w-2/3">
                     <EventsCarousel
                         events={events}
                         eventsCount={events.length}
                     />
                 </div>
 
-                <Card className="col-span-1 self-start h-auto">
+                <Card className="w-full md:w-1/3 self-start h-auto">
                     <EventCreateCard />
                 </Card>
+            </div>
 
-                <div className="col-span-3">
-                    <h2 className="text-lg font-medium mb-3">Past Events</h2>
-                    <EventsCarousel
-                        events={events}
-                        eventsCount={events.length}
-                    />
-                </div>
+            <div>
+                <h2 className="text-lg font-medium my-3">Past Events</h2>
+                <EventsCarousel events={events} eventsCount={events.length} />
             </div>
         </div>
     );
