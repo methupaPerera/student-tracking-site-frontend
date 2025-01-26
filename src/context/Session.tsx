@@ -34,8 +34,6 @@ export default function SessionProvider({ children }: Children) {
 
         const data = await response.json();
 
-        console.log(data);
-
         if (!response.ok) {
             setSession(null);
             return;

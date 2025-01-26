@@ -1,6 +1,7 @@
 "use client";
 
 import { useSession } from "@/context/Session";
+import Cookies from "js-cookie";
 
 // Importing components.
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -59,7 +60,12 @@ export function NavUser() {
                         align="end"
                         sideOffset={4}
                     >
-                        <DropdownMenuItem>
+                        <DropdownMenuItem
+                            onClick={() => {
+                                Cookies.remove("token");
+                                location.href = "/login";
+                            }}
+                        >
                             <LogOut />
                             Log out
                         </DropdownMenuItem>

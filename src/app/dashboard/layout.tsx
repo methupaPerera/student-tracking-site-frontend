@@ -33,9 +33,6 @@ export default function Page({ children }: Children) {
         case "/dashboard/events":
             activePage = "Events";
             break;
-        case "/dashboard/users/students":
-            activePage = "Students";
-            break;
         case "/dashboard/users/teachers":
             activePage = "Teachers";
             break;
@@ -46,6 +43,11 @@ export default function Page({ children }: Children) {
             activePage = "Settings";
             break;
     }
+
+    if (pathname.includes("/dashboard/users/students")) {
+        activePage = "Students";
+    }
+
     return (
         <SidebarProvider>
             <AppSidebar />
@@ -69,11 +71,10 @@ export default function Page({ children }: Children) {
                                         </BreadcrumbLink>
                                     </BreadcrumbItem>
                                     <BreadcrumbSeparator className="hidden md:block" />
-                                    <BreadcrumbItem>
-                                        <BreadcrumbPage>
-                                            {activePage}
-                                        </BreadcrumbPage>
-                                    </BreadcrumbItem>
+
+                                    <BreadcrumbPage>
+                                        {activePage}
+                                    </BreadcrumbPage>
                                 </BreadcrumbList>
                             </Breadcrumb>
                         </div>

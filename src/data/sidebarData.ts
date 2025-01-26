@@ -23,6 +23,7 @@ export const adminSidebarData = [
     {
         title: "Users",
         url: "/dashboard/students",
+        isActive: true,
         icon: FaUsers,
         items: [
             {
@@ -42,6 +43,7 @@ export const adminSidebarData = [
     {
         title: "Settings",
         url: "/dashboard/settings",
+        isActive: true,
         icon: IoIosSettings,
         items: [
             {
@@ -72,6 +74,7 @@ export const teacherSidebarData = [
     {
         title: "Students",
         url: "/dashboard/students",
+        isActive: true,
         icon: FaUsers,
         items: [
             {
@@ -91,6 +94,7 @@ export const teacherSidebarData = [
     {
         title: "Academic",
         url: "/dashboard/academic",
+        isActive: true,
         icon: GiBookshelf,
         items: [
             {
@@ -110,6 +114,7 @@ export const teacherSidebarData = [
     {
         title: "Profile",
         url: "/dashboard/profile",
+        isActive: true,
         icon: FaUserCircle,
         items: [
             {

@@ -7,7 +7,7 @@ import { MdOutlineFileDownload } from "react-icons/md";
 
 export default function Admin() {
     return (
-        <div className="py-4 pl-2 pr-4">
+        <div className="p-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <AdminDashboardCards />
             </div>

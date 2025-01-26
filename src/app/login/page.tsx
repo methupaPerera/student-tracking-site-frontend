@@ -76,10 +76,53 @@ export default function LoginForm() {
         }, 1000);
     };
 
+    const guestLogin = async () => {
+        const tid = toast.loading("Logging in...");
+
+        const res = await makeFetch("/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                userType: "admin",
+                email: "methupaperera@gmail.com",
+                password: "methupa",
+            }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            data.errors.forEach((error: string) => {
+                toast.error(error, {
+                    id: tid,
+                });
+            });
+            return;
+        }
+
+        setToken(data.token);
+        toast.success(data.message, {
+            id: tid,
+        });
+
+        setTimeout(() => {
+            location.href = "/dashboard";
+        }, 1000);
+    };
+
     return (
         <BackgroundBeamsWithCollision className="background max-h-screen">
             <BlurFade>
                 <div className="relative z-[1000] min-h-screen flex items-center justify-center">
+                    <Button
+                        onClick={guestLogin}
+                        className="absolute bottom-2 right-[50%] translate-x-[50%] z-50"
+                    >
+                        Guest Log In
+                    </Button>
+
                     <Card className="w-11/12 sm:w-96 shadow-[0_0.5rem_1rem] shadow-gray-700/10">
                         <CardHeader>
                             <CardTitle className="text-3xl font-bold">

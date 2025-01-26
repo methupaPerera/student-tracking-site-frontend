@@ -78,7 +78,7 @@ export const teacherData: Teacher[] = [
 
 export default function TeachersPage() {
     return (
-        <div className="pr-4 py-4 pl-2">
+        <div className="p-4">
             <TeachersTable data={teacherData} />
         </div>
     );

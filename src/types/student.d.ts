@@ -1,8 +1,9 @@
 export type Student = {
-    id: string;
     user_id: string;
     email: string;
     name: string;
+    gender: "male" | "female";
+    address: string;
     class: string;
     dateOfBirth: string;
     phone: string;
@@ -14,26 +15,29 @@ export type Student = {
         };
     };
     academicRecords: {
-        grades: {
-            subject: string;
-            grade: string;
-            term: string;
-        }[];
-        attendance: {
-            date: string;
-            status: "Present" | "Absent" | "Late";
-        }[];
+        grades: Grade[];
+        attendance: Attendance;
     };
-    extracurricularActivities: {
+    activities: {
         activityName: string;
-        position: string;
-        year: number;
-    }[];
-    achievements: {
-        title: string;
         description: string;
         date: string;
+        activityType: "academic" | "extracurricular";
     }[];
     createdAt: string;
     updatedAt: string;
+};
+
+export type Attendance = {
+    [month: string]: {
+        date: string;
+        status: "present" | "absent";
+    }[];
+};
+
+export type Grade = {
+    subject: string;
+    marks: number;
+    term: string;
+    year: number;
 };

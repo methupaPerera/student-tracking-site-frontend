@@ -34,38 +34,38 @@ import {
 } from "@/components/ui/table";
 import { FaPlus } from "react-icons/fa6";
 import Link from "next/link";
+import { useSession } from "@/context/Session";
+import StudentRegistrationForm from "../forms/student-register";
 
 export const columns: ColumnDef<Student>[] = [
-    {
-        id: "select",
-        header: ({ table }) => (
-            <Checkbox
-                checked={
-                    table.getIsAllPageRowsSelected() ||
-                    (table.getIsSomePageRowsSelected() && "indeterminate")
-                }
-                onCheckedChange={(value) =>
-                    table.toggleAllPageRowsSelected(!!value)
-                }
-                aria-label="Select all"
-            />
-        ),
-        cell: ({ row }) => (
-            <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
-                aria-label="Select row"
-            />
-        ),
-        enableSorting: false,
-        enableHiding: false,
-    },
+    // {
+    //     id: "select",
+    //     header: ({ table }) => (
+    //         <Checkbox
+    //             checked={
+    //                 table.getIsAllPageRowsSelected() ||
+    //                 (table.getIsSomePageRowsSelected() && "indeterminate")
+    //             }
+    //             onCheckedChange={(value) =>
+    //                 table.toggleAllPageRowsSelected(!!value)
+    //             }
+    //             aria-label="Select all"
+    //         />
+    //     ),
+    //     cell: ({ row }) => (
+    //         <Checkbox
+    //             checked={row.getIsSelected()}
+    //             onCheckedChange={(value) => row.toggleSelected(!!value)}
+    //             aria-label="Select row"
+    //         />
+    //     ),
+    //     enableSorting: false,
+    //     enableHiding: false,
+    // },
     {
         accessorKey: "user_id",
         header: "Student Id",
-        cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("user_id")}</div>
-        ),
+        cell: ({ row }) => <div>{row.getValue("user_id")}</div>,
     },
     {
         accessorKey: "name",
@@ -94,7 +94,9 @@ export const columns: ColumnDef<Student>[] = [
         cell: ({ row }) => {
             return (
                 <div className="text-right font-medium">
-                    {row.getValue("dateOfBirth")}
+                    {new Date(row.getValue("dateOfBirth")).toLocaleDateString(
+                        "en-CA"
+                    )}
                 </div>
             );
         },
@@ -103,6 +105,8 @@ export const columns: ColumnDef<Student>[] = [
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => {
+            const session = useSession();
+
             const student = row.original;
 
             return (
@@ -130,12 +134,16 @@ export const columns: ColumnDef<Student>[] = [
                                 Student Profile
                             </Button>
                         </Link>
-                        <Button size="sm" variant="secondary">
-                            Edit Details
-                        </Button>
-                        <Button size="sm" variant="destructive">
-                            Clear Profile
-                        </Button>
+                        {session?.user.userType === "admin" && (
+                            <>
+                                <Button size="sm" variant="secondary">
+                                    Edit Details
+                                </Button>
+                                <Button size="sm" variant="destructive">
+                                    Clear Profile
+                                </Button>
+                            </>
+                        )}
                     </DropdownMenuContent>
                 </DropdownMenu>
             );
@@ -186,9 +194,7 @@ export default function StudentsTable({ data }: { data: Student[] }) {
                     className="w-96"
                 />
 
-                <Button>
-                    Register <FaPlus />
-                </Button>
+                <StudentRegistrationForm />
             </div>
 
             <div className="rounded-md border">
@@ -202,10 +208,10 @@ export default function StudentsTable({ data }: { data: Student[] }) {
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
-                                                        header.column.columnDef
-                                                            .header,
-                                                        header.getContext()
-                                                    )}
+                                                      header.column.columnDef
+                                                          .header,
+                                                      header.getContext()
+                                                  )}
                                         </TableHead>
                                     );
                                 })}

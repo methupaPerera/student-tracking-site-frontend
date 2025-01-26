@@ -66,16 +66,16 @@ export default function WeeklyChart() {
                     content={<ChartTooltipContent />}
                 />
                 <Line
-                    dataKey="absent"
+                    dataKey="present"
                     type="monotone"
-                    stroke="var(--color-absent)"
+                    stroke="var(--color-present)"
                     strokeWidth={2}
                     dot={false}
                 />
                 <Line
-                    dataKey="present"
+                    dataKey="absent"
                     type="monotone"
-                    stroke="var(--color-present)"
+                    stroke="var(--color-absent)"
                     strokeWidth={2}
                     dot={false}
                 />
