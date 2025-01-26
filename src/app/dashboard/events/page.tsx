@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/card";
 import EventCreateCard from "@/components/dashboards/mini-components/event-create-card";
 import EventsCarousel from "@/components/dashboards/mini-components/events-carousel";
 
-export const events: EventProp[] = [
+const events: EventProp[] = [
     {
         event_id: "1",
         image: "/event.jpg",
