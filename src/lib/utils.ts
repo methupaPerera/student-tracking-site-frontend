@@ -19,7 +19,7 @@ export function removeToken() {
 }
 
 export async function verifyToken(token: string) {
-    const url = process.env.NEXT_PUBLIC_API_URL + "/api/auth";
+    const url = "https://student-tracking-site-backend.vercel.app" + "/api/auth";
     
     const response = await fetch(url, {
         method: "GET",
