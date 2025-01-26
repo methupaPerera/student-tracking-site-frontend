@@ -37,7 +37,7 @@ import Link from "next/link";
 import { useSession } from "@/context/Session";
 import makeFetch from "@/lib/makeFetch";
 
-export const columns: ColumnDef<Student>[] = [
+const columns: ColumnDef<Student>[] = [
     // {
     //     id: "select",
     //     header: ({ table }) => (
