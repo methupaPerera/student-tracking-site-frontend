@@ -1,7 +1,7 @@
 import TeachersTable from "@/components/dashboards/mini-components/tables/teacher-table";
 import type { Teacher } from "@/types/teacher";
 
-export const teacherData: Teacher[] = [
+const teacherData: Teacher[] = [
     {
         user_id: "T12345",
         email: "alice.johnson@example.com",
