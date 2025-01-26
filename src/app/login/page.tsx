@@ -113,7 +113,7 @@ export default function LoginForm() {
     };
 
     return (
-        <BackgroundBeamsWithCollision className="background max-h-screen">
+        <BackgroundBeamsWithCollision className="background h-screen">
             <BlurFade>
                 <div className="relative z-[1000] min-h-screen flex items-center justify-center">
                     <Button
