@@ -173,8 +173,6 @@ export default function StudentsTable({ data }: { data: Student[] }) {
         },
     });
 
-    // console.log(table.getSelectedRowModel().flatRows.map((row) => row.original));
-
     return (
         <div className="w-full">
             <div className="flex items-center justify-between py-4">
@@ -253,10 +251,6 @@ export default function StudentsTable({ data }: { data: Student[] }) {
             </div>
 
             <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="flex-1 text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div>
                 <div className="space-x-2">
                     <Button
                         variant="outline"

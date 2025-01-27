@@ -1,5 +1,6 @@
 "use client";
 
+// Importing utilities.
 import { useSession } from "@/context/Session";
 import Cookies from "js-cookie";
 
@@ -19,7 +20,7 @@ import {
 } from "@/components/ui/sidebar";
 import { ChevronsUpDown, LogOut } from "lucide-react";
 
-export function NavUser() {
+export default function NavUser() {
     const { isMobile } = useSidebar();
     const session = useSession();
 

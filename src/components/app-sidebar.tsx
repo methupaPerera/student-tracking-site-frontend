@@ -1,11 +1,10 @@
 "use client";
 
-import {
-    adminSidebarData,
-    studentSidebarData,
-    teacherSidebarData,
-} from "@/data/sidebarData";
+// Importing utilities.
 import { useSession } from "@/context/Session";
+
+// Importing data.
+import { adminSidebarData, teacherSidebarData } from "@/data/sidebarData";
 
 // Importing components.
 import Link from "next/link";
@@ -24,8 +23,8 @@ import {
     SidebarMenuSubButton,
     SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-import { NavUser } from "@/components/nav-user";
-import { SidebarHead } from "@/components/sidebar-head";
+import NavUser from "@/components/nav-user";
+import SidebarHead from "@/components/sidebar-head";
 import {
     Sidebar,
     SidebarContent,
@@ -41,9 +40,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const sidebarData =
         session?.user?.userType === "admin"
             ? adminSidebarData
-            : session?.user?.userType === "teacher"
-            ? teacherSidebarData
-            : studentSidebarData;
+            : teacherSidebarData;
 
     return (
         <Sidebar variant="floating" collapsible="icon" {...props}>

@@ -14,7 +14,15 @@ const poppins = Poppins({
 export const metadata: Metadata = {
     title: "LearnSphere - The next generation student tracking system.",
     description:
-        "LearnSphere is an innovative and comprehensive student tracking system designed to provide a holistic view of each student’s academic and extracurricular journey. This user-friendly platform empowers school administrators, teachers, students, and parents by seamlessly integrating personal records, academic performance, extracurricular participation, and achievements into a single, intuitive interface. With features like real-time attendance tracking, performance analytics, and a showcase for student milestones, LearnSphere fosters a supportive environment for student growth and success. Built with security and privacy at its core, this system is tailored to enhance the educational experience, making school management more efficient and engaging for everyone involved.",
+        "LearnSphere is an innovative and comprehensive student tracking system designed to provide a  \
+        holistic view of each student’s academic and extracurricular journey. This user-friendly \
+        platform empowers school administrators, teachers, students, and parents by seamlessly \
+        integrating personal records, academic performance, extracurricular participation, and \
+        achievements into a single, intuitive interface. With features like real-time attendance \
+        tracking, performance analytics, and a showcase for student milestones, LearnSphere fosters \
+        a supportive environment for student growth and success. Built with security and privacy at \
+        its core, this system is tailored to enhance the educational experience, making school management \
+        more efficient and engaging for everyone involved.",
 };
 
 export default function RootLayout({ children }: Readonly<Children>) {
@@ -25,7 +33,7 @@ export default function RootLayout({ children }: Readonly<Children>) {
             >
                 <SessionProvider>
                     {children}
-                    <Toaster position="bottom-right" />
+                    <Toaster position="top-right" />
                 </SessionProvider>
             </body>
         </html>

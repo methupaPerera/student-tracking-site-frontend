@@ -1,14 +1,16 @@
 "use client";
 
+// Importing utilities.
 import { useSession } from "@/context/Session";
 
+// Importing components.
 import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-export function SidebarHead() {
+export default function SidebarHead() {
     const session = useSession();
 
     return (

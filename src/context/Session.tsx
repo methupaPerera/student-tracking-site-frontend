@@ -2,6 +2,7 @@
 
 import type { Children } from "@/types";
 
+// Importing utilities.
 import { createContext, useContext, useState, useEffect } from "react";
 import makeFetch from "@/lib/makeFetch";
 import { getToken } from "@/lib/utils";
@@ -25,6 +26,7 @@ export default function SessionProvider({ children }: Children) {
     const [session, setSession] = useState(null);
 
     const getSession = async (token: string) => {
+        // Verifies the token...
         const response = await makeFetch("/api/auth", {
             method: "GET",
             headers: {

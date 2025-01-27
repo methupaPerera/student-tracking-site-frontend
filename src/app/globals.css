@@ -98,6 +98,7 @@
         );
 }
 
+/* Customizing the scroll bar... */
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -117,6 +118,7 @@
     background: #6d6d6d;
 }
 
+/* Handling the responsive design with container queries... */
 .parent-container {
     container-type: inline-size;
     container-name: card-container;

@@ -1,7 +1,6 @@
 import { MdDashboard } from "react-icons/md";
 import { IoIosSettings } from "react-icons/io";
 import { FaUsers, FaUserCircle } from "react-icons/fa";
-import { GiBookshelf } from "react-icons/gi";
 
 export const adminSidebarData = [
     {
@@ -84,5 +83,3 @@ export const teacherSidebarData = [
         ],
     },
 ];
-
-export const studentSidebarData = [];

@@ -1,47 +1,34 @@
 "use client";
 
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { DashboardAttendanceProp } from "@/types/dashboard";
 
-import { useState } from "react";
+// Importing components.
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import WeeklyChart from "./charts/weekly-chart";
 
-export default function AttendanceChart() {
-    const [selectedChart, setSelectedChart] = useState<string>("weekly");
-
+export default function AttendanceChart({
+    chartData,
+}: {
+    chartData: DashboardAttendanceProp[];
+}) {
     return (
         <Card className="mt-4">
-            <CardHeader className="flex flex-row justify-between items-center">
-                <CardTitle className="flex flex-col">
+            <CardHeader>
+                <CardTitle className="flex justify-between items-center">
                     <p>Attendance</p>
-                    <p className="mt-1 border bg-yellow-500 text-[12px] text-white rounded-full w-20 pt-1 text-center pb-[3px]">
-                        Students
-                    </p>
+                    <div className="flex flex-col gap-1">
+                        <p className="bg-yellow-100 text-xs text-yellow-600 rounded-full w-20 pt-1 text-center pb-[3px]">
+                            Students
+                        </p>
+                        <p className="bg-gray-100 text-xs text-gray-600 rounded-full w-20 pt-1 text-center pb-[3px]">
+                            This Week
+                        </p>
+                    </div>
                 </CardTitle>
-
-                <Select
-                    defaultValue="weekly"
-                    onValueChange={(value: string) => setSelectedChart(value)}
-                >
-                    <SelectTrigger className="w-[120px]">
-                        <SelectValue placeholder="Weekly" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="weekly">Weekly</SelectItem>
-                        <SelectItem value="monthly">Monthly</SelectItem>
-                        <SelectItem value="6-months">6 Months</SelectItem>
-                    </SelectContent>
-                </Select>
             </CardHeader>
 
             <CardContent>
-                {selectedChart === "weekly" && <WeeklyChart />}
+                <WeeklyChart chartData={chartData} />
             </CardContent>
         </Card>
     );

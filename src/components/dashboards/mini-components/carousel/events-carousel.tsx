@@ -80,7 +80,7 @@ export default function EventsCarousel({
 
             <div className="flex justify-between items-center">
                 <div className="ml-1 text-sm text-gray-500">
-                    Showing {currentSlide + 1} of {eventsCount}
+                    Showing {currentSlide + 1} of {Math.ceil(eventsCount / 3)}
                 </div>
                 <div className="flex items-center gap-3">
                     <div

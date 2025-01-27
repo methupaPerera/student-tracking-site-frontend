@@ -9,7 +9,7 @@ import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
-import EditEventModal from "./event-edit-modal";
+import EditEventModal from "../events/event-edit-modal";
 import makeFetch from "@/lib/makeFetch";
 import { toast } from "sonner";
 

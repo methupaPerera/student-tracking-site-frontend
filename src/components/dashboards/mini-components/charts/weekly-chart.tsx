@@ -1,5 +1,8 @@
 "use client";
 
+import type { DashboardAttendanceProp } from "@/types/dashboard";
+
+// Importing components.
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 import {
     ChartConfig,
@@ -7,17 +10,7 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart";
-import { useEffect, useState } from "react";
 import Loader from "@/components/loader";
-
-const chartData = [
-    { month: "Monday", present: 186, absent: 80 },
-    { month: "Tuesday", present: 305, absent: 200 },
-    { month: "Wednesday", present: 237, absent: 120 },
-    { month: "Friday", present: 73, absent: 190 },
-    { month: "Saturday", present: 209, absent: 130 },
-    { month: "Sunday", present: 214, absent: 140 },
-];
 
 const chartConfig = {
     absent: {
@@ -30,18 +23,12 @@ const chartConfig = {
     },
 } satisfies ChartConfig;
 
-export default function WeeklyChart() {
-    const [loading, setLoading] = useState<boolean>(true);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-    }, []);
-
-    if (loading) {
-        return <Loader />;
-    }
+export default function WeeklyChart({
+    chartData,
+}: {
+    chartData: DashboardAttendanceProp[];
+}) {
+    if (!chartData) return <Loader />;
 
     return (
         <ChartContainer config={chartConfig}>
@@ -49,17 +36,19 @@ export default function WeeklyChart() {
                 accessibilityLayer
                 data={chartData}
                 margin={{
-                    left: 12,
+                    left: 20,
                     right: 12,
                 }}
             >
                 <CartesianGrid vertical={false} />
                 <XAxis
-                    dataKey="month"
+                    dataKey="day"
                     tickLine={false}
                     axisLine={false}
                     tickMargin={8}
-                    tickFormatter={(value) => value.slice(0, 3)}
+                    tickFormatter={(value) =>
+                        value[0].toUpperCase() + value.slice(1, 3)
+                    }
                 />
                 <ChartTooltip
                     cursor={false}

@@ -2,6 +2,7 @@
 
 import type { UserType } from "@/types/auth";
 
+// Importing utilities.
 import { useRef } from "react";
 import { setToken } from "@/lib/utils";
 import makeFetch from "@/lib/makeFetch";
@@ -25,8 +26,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { BlurFade } from "@/components/ui/blur-fade";
-import { LuLogIn } from "react-icons/lu";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
+import { LuLogIn } from "react-icons/lu";
 
 export default function LoginForm() {
     const userTypeRef = useRef<UserType>("teacher");
@@ -67,6 +68,7 @@ export default function LoginForm() {
         }
 
         setToken(data.token);
+
         toast.success(data.message, {
             id: tid,
         });
@@ -100,14 +102,14 @@ export default function LoginForm() {
 
         const data = await res.json();
 
-        // if (!res.ok) {
-        //     data.errors.forEach((error: string) => {
-        //         toast.error(error, {
-        //             id: tid,
-        //         });
-        //     });
-        //     return;
-        // }
+        if (!res.ok) {
+            data.errors.forEach((error: string) => {
+                toast.error(error, {
+                    id: tid,
+                });
+            });
+            return;
+        }
 
         setToken(data.token);
 
@@ -148,9 +150,6 @@ export default function LoginForm() {
                                             <SelectValue placeholder="Select user type" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {/* <SelectItem value="student">
-                                                Student
-                                            </SelectItem> */}
                                             <SelectItem value="teacher">
                                                 Teacher
                                             </SelectItem>
@@ -180,10 +179,7 @@ export default function LoginForm() {
                                     <LuLogIn />
                                 </Button>
 
-                                <div
-                                    className="flex items-center
-                                "
-                                >
+                                <div className="flex items-center">
                                     <div className="h-[1px] w-1/3 bg-gray-300"></div>
                                     <p className="text-center w-2/3 text-sm text-gray-600">
                                         or log in as a guest
@@ -191,6 +187,7 @@ export default function LoginForm() {
                                     <div className="h-[1px] w-1/3 bg-gray-300"></div>
                                 </div>
 
+                                {/* Made the guest log in for testing purposes... */}
                                 <div className="flex w-full gap-2">
                                     <Button
                                         onClick={() => guestLogin("admin")}

@@ -2,6 +2,7 @@
 
 import type { Children } from "@/types";
 
+// Importing utilities.
 import { usePathname } from "next/navigation";
 
 // Importing components.
@@ -17,45 +18,40 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import Link from "next/link";
 import { IoMailOutline } from "react-icons/io5";
 import { GoBell } from "react-icons/go";
-import Link from "next/link";
 
 export default function Page({ children }: Children) {
     const pathname = usePathname();
 
-    let activePage: string = "";
+    // Getting breadcrumb text for the current page...
+    const getActivePage = () => {
+        switch (pathname) {
+            case "/dashboard":
+                return "Overview";
+            case "/dashboard/events":
+                return "Events";
+            case "/dashboard/users/teachers":
+                return "Teachers";
+            case "/dashboard/users/admins":
+                return "Admins";
+            case "/dashboard/settings":
+                return "Settings";
+            case "/dashboard/students/list":
+                return "Student List";
+            case "/dashboard/users/teachers/settings":
+                return "Settings";
+            case "/dashboard/students/attendance":
+                return "Mark Attendance";
+        }
 
-    switch (pathname) {
-        case "/dashboard":
-            activePage = "Overview";
-            break;
-        case "/dashboard/events":
-            activePage = "Events";
-            break;
-        case "/dashboard/users/teachers":
-            activePage = "Teachers";
-            break;
-        case "/dashboard/users/admins":
-            activePage = "Admins";
-            break;
-        case "/dashboard/settings":
-            activePage = "Settings";
-            break;
-        case "/dashboard/students/list":
-            activePage = "Student List";
-            break;
-        case "/dashboard/users/teachers/settings":
-            activePage = "Settings";
-            break;
-        case "/dashboard/students/attendance":
-            activePage = "Mark Attendance";
-            break;
-    }
+        if (pathname.includes("/dashboard/users/students")) {
+            return "Students";
+        }
+    };
 
-    if (pathname.includes("/dashboard/users/students")) {
-        activePage = "Students";
-    }
+    const activePage = getActivePage();
 
     return (
         <SidebarProvider>
@@ -79,6 +75,7 @@ export default function Page({ children }: Children) {
                                             </Link>
                                         </BreadcrumbLink>
                                     </BreadcrumbItem>
+                                    
                                     <BreadcrumbSeparator className="hidden md:block" />
 
                                     <BreadcrumbPage>
