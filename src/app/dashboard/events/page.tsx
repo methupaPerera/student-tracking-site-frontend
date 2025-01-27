@@ -6,75 +6,19 @@ import type { EventProp } from "@/types/dashboard";
 import { Card } from "@/components/ui/card";
 import EventCreateCard from "@/components/dashboards/mini-components/event-create-card";
 import EventsCarousel from "@/components/dashboards/mini-components/events-carousel";
-
-const events: EventProp[] = [
-    {
-        event_id: "1",
-        image: "/event.jpg",
-        title: "Live Music Night",
-        date: "2025-02-10",
-        description:
-            "Enjoy an evening of live performances by local bands and artists at the downtown amphitheater.",
-    },
-    {
-        event_id: "2",
-        image: "/event.jpg",
-        title: "Tech Innovations 2025",
-        date: "2025-03-05",
-        description:
-            "Explore the latest advancements in technology with keynote speakers, demos, and networking opportunities.",
-    },
-    {
-        event_id: "3",
-        image: "/event.jpg",
-        title: "Art & Design Expo",
-        date: "2025-02-18",
-        description:
-            "Discover stunning artworks and interact with creators at this year’s Art & Design Expo.",
-    },
-    {
-        event_id: "4",
-        image: "/event.jpg",
-        title: "Gourmet Food Festival",
-        date: "2025-04-02",
-        description:
-            "Taste delicious cuisines from around the world, prepared by top chefs and food vendors.",
-    },
-    {
-        event_id: "5",
-        image: "/event.jpg",
-        title: "Annual Charity Run",
-        date: "2025-03-25",
-        description:
-            "Join us for a 5K run to support local charities and promote a healthy lifestyle.",
-    },
-    {
-        event_id: "6",
-        image: "/event.jpg",
-        title: "Spring Book Fair",
-        date: "2025-05-15",
-        description:
-            "Browse a wide selection of books from authors and publishers, and attend special author readings.",
-    },
-    {
-        event_id: "7",
-        image: "/event.jpg",
-        title: "Outdoor Movie Screening",
-        date: "2025-06-10",
-        description:
-            "Relax under the stars and watch a classic movie on the big screen with friends and family.",
-    },
-    {
-        event_id: "8",
-        image: "/event.jpg",
-        title: "Startup Pitch Night",
-        date: "2025-02-28",
-        description:
-            "Watch budding entrepreneurs pitch their innovative ideas to investors and industry leaders.",
-    },
-];
+import { useEffect, useState } from "react";
+import makeFetch from "@/lib/makeFetch";
+import Loader from "@/components/loader";
 
 export default function EventsPage() {
+    const [events, setEvents] = useState<EventProp[]>([]);
+
+    useEffect(() => {
+        makeFetch("/api/event")
+            .then((res) => res.json())
+            .then((data) => setEvents(data.events));
+    }, []);
+
     return (
         <div className="p-4">
             <div className="mb-3 flex justify-between items-center">
@@ -83,10 +27,12 @@ export default function EventsPage() {
 
             <div className="flex flex-col md:flex-row gap-4">
                 <div className="w-full md:w-2/3">
-                    <EventsCarousel
-                        events={events}
-                        eventsCount={events.length}
-                    />
+                    {events.length > 0 && (
+                        <EventsCarousel
+                            events={events}
+                            eventsCount={events.length}
+                        />
+                    )}
                 </div>
 
                 <Card className="w-full md:w-1/3 self-start h-auto">
@@ -96,7 +42,12 @@ export default function EventsPage() {
 
             <div>
                 <h2 className="text-lg font-medium my-3">Past Events</h2>
-                <EventsCarousel events={events} eventsCount={events.length} />
+                {events.length > 0 && (
+                    <EventsCarousel
+                        events={events}
+                        eventsCount={events.length}
+                    />
+                )}
             </div>
         </div>
     );

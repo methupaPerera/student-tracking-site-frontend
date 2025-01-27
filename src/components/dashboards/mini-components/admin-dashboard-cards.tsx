@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 
 import { DotPattern } from "@/components/ui/dot-pattern";
@@ -9,8 +11,25 @@ import { Users } from "lucide-react";
 import { FaArrowTrendUp, FaArrowTrendDown } from "react-icons/fa6";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { MdSsidChart } from "react-icons/md";
+import makeFetch from "@/lib/makeFetch";
+import { useEffect, useState } from "react";
+import Loader from "@/components/loader";
 
 export default function AdminDashboardCards() {
+    const [data, setData] = useState();
+
+    useEffect(() => {
+        const fetchDashboardData = async () => {
+            const res = await makeFetch("/api/admin/dashboard");
+            const data = await res.json();
+            setData(data.data);
+        };
+
+        fetchDashboardData();
+    }, []);
+
+    if (!data) return <Loader />;
+
     return (
         <>
             <Card className="relative overflow-hidden">
@@ -23,7 +42,9 @@ export default function AdminDashboardCards() {
                     </div>
                 </CardHeader>
                 <CardContent className="z-50 relative pt-4 flex justify-between items-center">
-                    <p className="text-3xl font-medium pb-0.5">1,254</p>
+                    <p className="text-3xl font-medium pb-0.5">
+                        {data.total_students}
+                    </p>
                     <Link href="/dashboard/users/students">
                         <Button size="sm">Manage</Button>
                     </Link>
@@ -55,7 +76,9 @@ export default function AdminDashboardCards() {
                     </div>
                 </CardHeader>
                 <CardContent className="z-50 relative pt-4 flex justify-between items-center">
-                    <p className="text-3xl font-medium pb-0.5">160</p>
+                    <p className="text-3xl font-medium pb-0.5">
+                        {data.total_teachers}
+                    </p>
                     <Link href="/dashboard/users/teachers">
                         <Button
                             className="bg-orange-500 hover:bg-orange-500/90"
@@ -88,12 +111,11 @@ export default function AdminDashboardCards() {
                     </div>
                 </CardHeader>
                 <CardContent className="relative z-50 pt-2">
-                    <p className="text-3xl font-medium pb-0.5">96%</p>
+                    <p className="text-3xl font-medium pb-0.5">
+                        {data.student_attendance}
+                    </p>
                     <p className="text-sm flex items-center gap-2 text-gray-500">
-                        <span className="text-green-600 font-bold flex gap-1">
-                            20% <FaArrowTrendUp className="mt-[2px]" />
-                        </span>{" "}
-                        than last month
+                        Today
                     </p>
                 </CardContent>
                 <DotPattern

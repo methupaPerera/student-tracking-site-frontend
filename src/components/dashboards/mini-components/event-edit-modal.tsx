@@ -89,18 +89,6 @@ export default function EditEventModal({
                                 className="w-full"
                             />
                         </div>
-                        <div>
-                            <Label htmlFor="image" className="text-right">
-                                Image URL
-                            </Label>
-                            <Input
-                                id="image"
-                                name="image"
-                                value={editedEvent.image}
-                                onChange={handleInputChange}
-                                className="w-full"
-                            />
-                        </div>
                     </div>
                     <DialogFooter>
                         <Button type="submit">Save changes</Button>

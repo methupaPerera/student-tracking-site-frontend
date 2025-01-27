@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import EditEventModal from "./event-edit-modal";
+import makeFetch from "@/lib/makeFetch";
+import { toast } from "sonner";
 
 export default function CarouselCard({
     event,
@@ -24,12 +26,43 @@ export default function CarouselCard({
         setIsEditModalOpen(true);
     };
 
-    const handleDelete = () => {
-        // pass
+    const handleDelete = async () => {
+        const res = await makeFetch(`/api/event/${event.event_id}`, {
+            method: "DELETE",
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            toast.success(data.message);
+        } else {
+            data.errors.forEach((error: string) => {
+                toast.error(error);
+            });
+        }
     };
 
-    const handleSave = (updatedEvent: EventProp) => {
-        // pass
+    const handleSave = async (updatedEvent: EventProp) => {
+        const tid = toast.loading("Updating event...");
+
+        const res = await makeFetch(`/api/event/${event.event_id}`, {
+            method: "PUT",
+            body: JSON.stringify(updatedEvent),
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            toast.success(data.message, {
+                id: tid,
+            });
+        } else {
+            data.errors.forEach((error: string) => {
+                toast.error(error, {
+                    id: tid,
+                });
+            });
+        }
     };
 
     return (
@@ -41,7 +74,7 @@ export default function CarouselCard({
             >
                 <Card className="relative overflow-hidden bg-none">
                     <Image
-                        src={event.image}
+                        src="/event.jpg"
                         className="w-full object-cover h-80"
                         width={100}
                         height={100}
@@ -55,7 +88,7 @@ export default function CarouselCard({
                             {event.title}
                         </p>
                         <p className="mb-1 text-gray-300 text-[12px] bg-gray-700 text-center py-0.5 rounded-full w-24 -ml-0.5 mt-1">
-                            {event.date}
+                            {new Date(event.date).toLocaleDateString("en-CA")}
                         </p>
                         <p className="line-clamp-3 text-sm text-gray-400">
                             {event.description}

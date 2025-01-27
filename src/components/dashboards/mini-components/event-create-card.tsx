@@ -3,14 +3,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import makeFetch from "@/lib/makeFetch";
 import { Calendar } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function EventCreateCard() {
     const [newEvent, setNewEvent] = useState({
         title: "",
         date: "",
-        location: "",
         description: "",
     });
 
@@ -24,7 +25,34 @@ export default function EventCreateCard() {
         }));
     };
 
-    const addEvent = () => {};
+    const addEvent = async () => {
+        const tid = toast.loading("Creating event...");
+
+        const res = await makeFetch("/api/event", {
+            method: "POST",
+            body: JSON.stringify(newEvent),
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            toast.success("Event created successfully!", {
+                id: tid,
+            });
+
+            setNewEvent({
+                title: "",
+                date: "",
+                description: "",
+            });
+        } else {
+            data.errors.forEach((error: string) => {
+                toast.error(error, {
+                    id: tid,
+                });
+            });
+        }
+    };
 
     return (
         <div className="p-4">
@@ -41,12 +69,6 @@ export default function EventCreateCard() {
                     name="date"
                     value={newEvent.date}
                     onChange={handleInputChange}
-                />
-                <Input
-                    name="location"
-                    value={newEvent.location}
-                    onChange={handleInputChange}
-                    placeholder="Location"
                 />
                 <Textarea
                     name="description"
