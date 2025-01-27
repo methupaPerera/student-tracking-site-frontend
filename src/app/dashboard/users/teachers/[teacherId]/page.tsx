@@ -2,13 +2,12 @@
 
 import type { Teacher } from "@/types/teacher";
 
+// Importing utilities.
 import { useState, useEffect, use } from "react";
-
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import Loader from "@/components/loader";
 import makeFetch from "@/lib/makeFetch";
+
+// Importing components.
+import Loader from "@/components/loader";
 import { Book, CalendarClock, Mail, Phone, User } from "lucide-react";
 
 export default function TeacherInfoAdmin({
@@ -19,18 +18,14 @@ export default function TeacherInfoAdmin({
     const { teacherId } = use(params);
     const [teacher, setTeacher] = useState<Teacher | null>(null);
 
-    useEffect(() => {
-        const fetchTeacher = async () => {
-            try {
-                const response = await makeFetch(`/api/teacher/${teacherId}`);
-                const data = await response.json();
-                console.log(data);
-                setTeacher(data.teacher);
-            } catch (err) {
-                // pass
-            }
-        };
+    const fetchTeacher = async () => {
+        const response = await makeFetch(`/api/teacher/${teacherId}`);
+        const data = await response.json();
 
+        setTeacher(data.teacher);
+    };
+
+    useEffect(() => {
         fetchTeacher();
     }, [teacherId]);
 
@@ -66,7 +61,7 @@ export default function TeacherInfoAdmin({
                 <div className="mt-4">
                     <h3 className="font-semibold text-gray-700 mb-2 flex items-center">
                         <Book className="mr-2 text-gray-500" size={20} />
-                        Subjects Taught
+                        Subjects
                     </h3>
                     {teacher.subjects.map((subject, index) => (
                         <div key={index} className="mb-2 ml-7">

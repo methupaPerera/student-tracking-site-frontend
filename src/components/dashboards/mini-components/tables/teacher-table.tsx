@@ -2,11 +2,12 @@
 
 import type { Teacher } from "@/types/teacher";
 
+// Importing utilities.
 import { useState } from "react";
+
+// Importing components.
 import {
     ColumnDef,
-    ColumnFiltersState,
-    SortingState,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
@@ -16,7 +17,6 @@ import {
 } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -32,35 +32,11 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { FaPlus } from "react-icons/fa6";
 import Link from "next/link";
 import TeacherRegistrationForm from "../forms/teacher-register";
+import TeacherEditForm from "../forms/teacher-edit";
 
 export const columns: ColumnDef<Teacher>[] = [
-    // {
-    //     id: "select",
-    //     header: ({ table }) => (
-    //         <Checkbox
-    //             checked={
-    //                 table.getIsAllPageRowsSelected() ||
-    //                 (table.getIsSomePageRowsSelected() && "indeterminate")
-    //             }
-    //             onCheckedChange={(value) =>
-    //                 table.toggleAllPageRowsSelected(!!value)
-    //             }
-    //             aria-label="Select all"
-    //         />
-    //     ),
-    //     cell: ({ row }) => (
-    //         <Checkbox
-    //             checked={row.getIsSelected()}
-    //             onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //             aria-label="Select row"
-    //         />
-    //     ),
-    //     enableSorting: false,
-    //     enableHiding: false,
-    // },
     {
         accessorKey: "user_id",
         header: "Teacher Id",
@@ -131,9 +107,9 @@ export const columns: ColumnDef<Teacher>[] = [
                                 Teacher Profile
                             </Button>
                         </Link>
-                        <Button size="sm" variant="secondary">
-                            Edit Details
-                        </Button>
+
+                        <TeacherEditForm teacher={teacher} />
+
                         <Button size="sm" variant="destructive">
                             Clear Profile
                         </Button>
@@ -145,28 +121,20 @@ export const columns: ColumnDef<Teacher>[] = [
 ];
 
 export default function TeachersTable({ data }: { data: Teacher[] }) {
-    const [sorting, setSorting] = useState<SortingState>([]);
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [rowSelection, setRowSelection] = useState({});
 
     const table = useReactTable({
         data,
         columns,
-        onSortingChange: setSorting,
-        onColumnFiltersChange: setColumnFilters,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         onRowSelectionChange: setRowSelection,
         state: {
-            sorting,
-            columnFilters,
             rowSelection,
         },
     });
-
-    // console.log(table.getSelectedRowModel().flatRows.map((row) => row.original));
 
     return (
         <div className="w-full">
@@ -246,10 +214,6 @@ export default function TeachersTable({ data }: { data: Teacher[] }) {
             </div>
 
             <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="flex-1 text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div>
                 <div className="space-x-2">
                     <Button
                         variant="outline"

@@ -2,8 +2,10 @@
 
 import type { EventProp } from "@/types/dashboard";
 
+// Importing utilities.
 import { useState } from "react";
 
+// Importing components.
 import {
     Dialog,
     DialogContent,

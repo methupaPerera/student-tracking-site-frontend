@@ -1,11 +1,14 @@
 "use client";
 
 import type { Student } from "@/types/student";
+
+// Importing utilities.
 import { useEffect, useState } from "react";
+import makeFetch from "@/lib/makeFetch";
+
+// Importing components.
 import {
     ColumnDef,
-    ColumnFiltersState,
-    SortingState,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
@@ -24,7 +27,6 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Calendar } from "@/components/ui/calendar";
-import makeFetch from "@/lib/makeFetch";
 import { toast } from "sonner";
 
 type AttendanceData = { name: string; status: string | null; user_id: string };
@@ -85,62 +87,10 @@ const columns: ColumnDef<AttendanceData>[] = [
 ];
 
 export default function MarkAttendance() {
-    const [sorting, setSorting] = useState<SortingState>([]);
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [rowSelection, setRowSelection] = useState({});
     const [data, setData] = useState<Student[]>([]);
     const [attendanceData, setAttendanceData] = useState<AttendanceData[]>([]);
-
     const [date, setDate] = useState<Date>(new Date());
-
-    const fetchClassStudents = () => {
-        makeFetch("/api/teacher/students")
-            .then((res) => res.json())
-            .then((data) => {
-                setData(data.students);
-            });
-    };
-
-    useEffect(() => {
-        fetchClassStudents();
-    }, []);
-
-    useEffect(() => {
-        if (!data.length || !date) return;
-
-        const selectedDate = new Date(date);
-        const month = selectedDate
-            .toLocaleString("en-US", { month: "long" })
-            .toLowerCase();
-        const formattedDate = new Date(selectedDate).toLocaleDateString(
-            "en-CA"
-        );
-
-        const newData = data.map((student) => {
-            const records = student.academicRecords.attendance[month];
-
-            if (!records) {
-                return {
-                    name: student.name,
-                    status: null,
-                    user_id: student.user_id,
-                };
-            }
-
-            const status = student.academicRecords.attendance[month]?.filter(
-                ({ date }) =>
-                    new Date(date).toLocaleDateString("en-CA") === formattedDate
-            )[0];
-
-            return {
-                user_id: student.user_id,
-                name: student.name,
-                status: status ? status.status : null,
-            };
-        });
-
-        setAttendanceData(newData);
-    }, [data, date]);
 
     const table = useReactTable({
         data: attendanceData ?? [],
@@ -149,15 +99,18 @@ export default function MarkAttendance() {
         getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
-        onSortingChange: setSorting,
-        onColumnFiltersChange: setColumnFilters,
         onRowSelectionChange: setRowSelection,
         state: {
-            sorting,
-            columnFilters,
             rowSelection,
         },
     });
+
+    const fetchClassStudents = async () => {
+        const res = await makeFetch("/api/teacher/students");
+        const data = await res.json();
+
+        setData(data.students);
+    };
 
     const handleAttendanceMarking = async () => {
         const tid = toast.loading("Marking attendance...");
@@ -188,14 +141,89 @@ export default function MarkAttendance() {
         }
     };
 
+    useEffect(() => {
+        fetchClassStudents();
+    }, []);
+
+    useEffect(() => {
+        if (!data.length || !date) return;
+
+        const getDataForSelectedDate = () => {
+            const selectedDate = new Date(date);
+            const month = selectedDate
+                .toLocaleString("en-US", { month: "long" })
+                .toLowerCase();
+            const formattedDate = new Date(selectedDate).toLocaleDateString(
+                "en-CA"
+            );
+
+            const newData = data.map((student) => {
+                const records = student.academicRecords.attendance[month];
+
+                if (!records) {
+                    return {
+                        name: student.name,
+                        status: null,
+                        user_id: student.user_id,
+                    };
+                }
+
+                const status = student.academicRecords.attendance[
+                    month
+                ]?.filter(
+                    ({ date }) =>
+                        new Date(date).toLocaleDateString("en-CA") ===
+                        formattedDate
+                )[0];
+
+                return {
+                    user_id: student.user_id,
+                    name: student.name,
+                    status: status ? status.status : null,
+                };
+            });
+
+            return newData;
+        };
+
+        const newData = getDataForSelectedDate();
+
+        setAttendanceData(newData);
+    }, [data, date]);
+
     return (
         <div className="p-4">
-            <p className="mb-3">
-                Attendance Information for{" "}
-                {new Date(date).toLocaleDateString("en-CA")}
-            </p>
             <div className="flex w-full gap-4">
                 <div className="w-full">
+                    <div className="px-1 flex justify-between items-center mb-3 text-sm text-gray-600">
+                        <p>
+                            Attendance -{" "}
+                            {new Date(date).toLocaleDateString("en-CA")}
+                        </p>
+                        <p className="flex gap-2">
+                            <span className="text-green-600">
+                                Present -{" "}
+                                {attendanceData.reduce(
+                                    (total, prev) =>
+                                        prev.status === "present"
+                                            ? total + 1
+                                            : total,
+                                    0
+                                )}
+                            </span>
+                            <span>•</span>
+                            <span className="text-red-600">
+                                Absent -{" "}
+                                {attendanceData.reduce(
+                                    (total, prev) =>
+                                        prev.status === "absent"
+                                            ? total + 1
+                                            : total,
+                                    0
+                                )}
+                            </span>
+                        </p>
+                    </div>
                     <div className="rounded-md border">
                         <Table>
                             <TableHeader>

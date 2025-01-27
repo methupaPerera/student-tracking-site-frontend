@@ -1,5 +1,7 @@
 "use client";
 
+import type { Student } from "@/types/student";
+
 // Importing utilities.
 import { useState } from "react";
 import makeFetch from "@/lib/makeFetch";
@@ -42,20 +44,20 @@ interface StudentData {
     };
 }
 
-export default function StudentRegistrationForm() {
+export default function StudentEditForm({ student }: { student: Student }) {
     const [formData, setFormData] = useState<StudentData>({
-        email: "",
-        name: "",
-        gender: "male",
-        address: "",
-        class: "",
-        dateOfBirth: "",
-        phone: "",
+        email: student.email,
+        name: student.name,
+        gender: student.gender,
+        address: student.address,
+        class: student.class,
+        dateOfBirth: student.dateOfBirth,
+        phone: student.phone,
         guardianInfo: {
-            guardianName: "",
+            guardianName: student.guardianInfo.guardianName,
             guardianContact: {
-                email: "",
-                phone: "",
+                email: student.guardianInfo.guardianContact.email,
+                phone: student.guardianInfo.guardianContact.phone,
             },
         },
     });
@@ -99,10 +101,10 @@ export default function StudentRegistrationForm() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const tid = toast.loading("Registering student...");
+        const tid = toast.loading("Updating student...");
 
-        const res = await makeFetch("/api/student", {
-            method: "POST",
+        const res = await makeFetch(`/api/student/${student.user_id}`, {
+            method: "PUT",
             body: JSON.stringify(formData),
         });
 
@@ -120,13 +122,13 @@ export default function StudentRegistrationForm() {
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button>
-                    Register <FaPlus />
+                <Button size="sm" variant="secondary">
+                    Edit Details
                 </Button>
             </SheetTrigger>
             <SheetContent className="overflow-auto">
                 <SheetHeader>
-                    <SheetTitle>Student Registration</SheetTitle>
+                    <SheetTitle>Edit Student</SheetTitle>
                 </SheetHeader>
                 <form onSubmit={handleSubmit} className="space-y-4 mt-4">
                     <div>
@@ -246,7 +248,7 @@ export default function StudentRegistrationForm() {
                         />
                     </div>
                     <Button type="submit" className="w-full">
-                        Register Student
+                        Save
                     </Button>
                 </form>
             </SheetContent>

@@ -2,7 +2,11 @@
 
 import type { Student } from "@/types/student";
 
+// Importing utilities.
+import { useSession } from "@/context/Session";
 import { useState } from "react";
+
+// Importing components.
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -16,7 +20,6 @@ import {
 } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -32,36 +35,11 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { FaPlus } from "react-icons/fa6";
 import Link from "next/link";
-import { useSession } from "@/context/Session";
 import StudentRegistrationForm from "../forms/student-register";
+import StudentEditForm from "../forms/student-edit";
 
 export const columns: ColumnDef<Student>[] = [
-    // {
-    //     id: "select",
-    //     header: ({ table }) => (
-    //         <Checkbox
-    //             checked={
-    //                 table.getIsAllPageRowsSelected() ||
-    //                 (table.getIsSomePageRowsSelected() && "indeterminate")
-    //             }
-    //             onCheckedChange={(value) =>
-    //                 table.toggleAllPageRowsSelected(!!value)
-    //             }
-    //             aria-label="Select all"
-    //         />
-    //     ),
-    //     cell: ({ row }) => (
-    //         <Checkbox
-    //             checked={row.getIsSelected()}
-    //             onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //             aria-label="Select row"
-    //         />
-    //     ),
-    //     enableSorting: false,
-    //     enableHiding: false,
-    // },
     {
         accessorKey: "user_id",
         header: "Student Id",
@@ -105,8 +83,6 @@ export const columns: ColumnDef<Student>[] = [
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => {
-            const session = useSession();
-
             const student = row.original;
 
             return (
@@ -134,16 +110,12 @@ export const columns: ColumnDef<Student>[] = [
                                 Student Profile
                             </Button>
                         </Link>
-                        {session?.user.userType === "admin" && (
-                            <>
-                                <Button size="sm" variant="secondary">
-                                    Edit Details
-                                </Button>
-                                <Button size="sm" variant="destructive">
-                                    Clear Profile
-                                </Button>
-                            </>
-                        )}
+
+                        <StudentEditForm student={student} />
+                        
+                        <Button size="sm" variant="destructive">
+                            Clear Profile
+                        </Button>
                     </DropdownMenuContent>
                 </DropdownMenu>
             );

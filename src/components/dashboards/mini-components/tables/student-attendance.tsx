@@ -1,7 +1,12 @@
 "use client";
 
+import type { Attendance } from "@/types/student";
+
+// Importing utilities.
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+// Importing components.
+import { Card, CardContent } from "@/components/ui/card";
 import {
     Table,
     TableBody,
@@ -11,10 +16,8 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import type { Attendance } from "@/types/student";
-import { cn } from "@/lib/utils";
 import AttendanceChart from "../charts/attendance-chart";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const months = [
     "january",
@@ -149,8 +152,6 @@ function MonthCard({
         setAbsentDays(absent);
     }, [monthData]);
 
-    console.log(monthData);
-
     return (
         <Card>
             <CardContent className="h-[365px] overflow-auto">
@@ -165,7 +166,11 @@ function MonthCard({
                     <TableBody className="h-[180px]">
                         {monthData.map((record) => (
                             <TableRow key={record.date}>
-                                <TableCell>{record.date}</TableCell>
+                                <TableCell>
+                                    {new Date(record.date).toLocaleDateString(
+                                        "en-CA"
+                                    )}
+                                </TableCell>
                                 <TableCell>
                                     <span
                                         className={`capitalize inline-block mt-2 px-2 py-1 text-xs rounded-full ${

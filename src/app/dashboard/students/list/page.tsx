@@ -2,7 +2,12 @@
 
 import type { Student } from "@/types/student";
 
+// Importing utilities.
 import { useEffect, useState } from "react";
+import { useSession } from "@/context/Session";
+import makeFetch from "@/lib/makeFetch";
+
+// Importing components.
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -14,9 +19,7 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -32,36 +35,10 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { FaPlus } from "react-icons/fa6";
 import Link from "next/link";
-import { useSession } from "@/context/Session";
-import makeFetch from "@/lib/makeFetch";
+import { MoreHorizontal } from "lucide-react";
 
 const columns: ColumnDef<Student>[] = [
-    // {
-    //     id: "select",
-    //     header: ({ table }) => (
-    //         <Checkbox
-    //             checked={
-    //                 table.getIsAllPageRowsSelected() ||
-    //                 (table.getIsSomePageRowsSelected() && "indeterminate")
-    //             }
-    //             onCheckedChange={(value) =>
-    //                 table.toggleAllPageRowsSelected(!!value)
-    //             }
-    //             aria-label="Select all"
-    //         />
-    //     ),
-    //     cell: ({ row }) => (
-    //         <Checkbox
-    //             checked={row.getIsSelected()}
-    //             onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //             aria-label="Select row"
-    //         />
-    //     ),
-    //     enableSorting: false,
-    //     enableHiding: false,
-    // },
     {
         accessorKey: "user_id",
         header: "Student Id",
@@ -106,7 +83,6 @@ const columns: ColumnDef<Student>[] = [
         enableHiding: false,
         cell: ({ row }) => {
             const session = useSession();
-
             const student = row.original;
 
             return (
@@ -266,10 +242,6 @@ export default function StudentsTable() {
             </div>
 
             <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="flex-1 text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div>
                 <div className="space-x-2">
                     <Button
                         variant="outline"

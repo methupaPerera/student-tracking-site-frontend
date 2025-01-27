@@ -1,11 +1,14 @@
 "iuse client";
 
+// Importing utilities.
+import { useState } from "react";
+import makeFetch from "@/lib/makeFetch";
+
+// Importing components.
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import makeFetch from "@/lib/makeFetch";
 import { Calendar } from "lucide-react";
-import { useState } from "react";
 import { toast } from "sonner";
 
 export default function EventCreateCard() {
@@ -36,7 +39,7 @@ export default function EventCreateCard() {
         const data = await res.json();
 
         if (res.ok) {
-            toast.success("Event created successfully!", {
+            toast.success(data.message, {
                 id: tid,
             });
 

@@ -2,6 +2,8 @@
 
 import type { Student } from "@/types/student";
 
+// Importing utilities.
+import React from "react";
 import makeFetch from "@/lib/makeFetch";
 import { use, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -9,15 +11,10 @@ import { cn } from "@/lib/utils";
 // Importing components.
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import {
-    User,
-    GraduationCap,
-    Calendar,
-} from "lucide-react";
 import StudentAttendance from "@/components/dashboards/mini-components/tables/student-attendance";
 import StudentPerformance from "@/components/dashboards/mini-components/student-performance";
-import React from "react";
 import Loader from "@/components/loader";
+import { User, GraduationCap, Calendar } from "lucide-react";
 
 export default function Students({
     params,
@@ -27,14 +24,14 @@ export default function Students({
     const { studentId } = use(params);
     const [student, setStudent] = useState<Student | null>(null);
 
+    const fetchStudent = async () => {
+        const res = await makeFetch(`/api/student/${studentId}`);
+        const data = await res.json();
+
+        setStudent({ ...data.student });
+    };
+
     useEffect(() => {
-        const fetchStudent = async () => {
-            const res = await makeFetch(`/api/student/${studentId}`);
-            const data = await res.json();
-
-            setStudent({ ...data.student });
-        };
-
         fetchStudent();
     }, []);
 
@@ -112,7 +109,9 @@ export default function Students({
                             />
                             <InfoRow
                                 label="Date of Birth"
-                                value={student?.dateOfBirth}
+                                value={new Date(
+                                    student?.dateOfBirth
+                                ).toLocaleDateString("en-CA")}
                             />
                             <InfoRow
                                 label="Gender"

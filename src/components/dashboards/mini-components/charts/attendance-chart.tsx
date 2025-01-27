@@ -1,6 +1,8 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
+import type { Attendance } from "@/types/student";
+
+// Importing components.
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 import {
     Card,
@@ -16,8 +18,6 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart";
-
-import type { Attendance } from "@/types/student";
 
 const chartConfig = {
     absent: {
@@ -58,8 +58,6 @@ export default function AttendanceChart({
             };
         });
     };
-
-    console.log(convertToChartData(chartData));
 
     return (
         <Card>

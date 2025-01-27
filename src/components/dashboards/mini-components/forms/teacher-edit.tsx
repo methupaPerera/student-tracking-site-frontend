@@ -1,5 +1,7 @@
 "use client";
 
+import type { Teacher } from "@/types/teacher";
+
 // Importing utilities.
 import { useState } from "react";
 import makeFetch from "@/lib/makeFetch";
@@ -16,7 +18,6 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { toast } from "sonner";
-import { FaPlus } from "react-icons/fa6";
 
 interface TeacherData {
     email: string;
@@ -29,13 +30,13 @@ interface TeacherData {
     }[];
 }
 
-export default function TeacherRegistrationForm() {
+export default function TeacherEditForm({ teacher }: { teacher: Teacher }) {
     const [formData, setFormData] = useState<TeacherData>({
-        email: "",
-        name: "",
-        inChargeOf: "",
-        phone: "",
-        subjects: [],
+        email: teacher.email,
+        name: teacher.name,
+        inChargeOf: teacher.inChargeOf,
+        phone: teacher.phone,
+        subjects: teacher.subjects,
     });
 
     const [subjectName, setSubjectName] = useState("");
@@ -70,10 +71,10 @@ export default function TeacherRegistrationForm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const tid = toast.loading("Registering teacher...");
+        const tid = toast.loading("Updating teacher...");
 
-        const res = await makeFetch("/api/teacher", {
-            method: "POST",
+        const res = await makeFetch(`/api/teacher/${teacher.user_id}`, {
+            method: "PUT",
             body: JSON.stringify(formData),
         });
 
@@ -91,8 +92,8 @@ export default function TeacherRegistrationForm() {
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button>
-                    Register <FaPlus />
+                <Button size="sm" variant="secondary">
+                    Edit Details
                 </Button>
             </SheetTrigger>
             <SheetContent className="overflow-auto">

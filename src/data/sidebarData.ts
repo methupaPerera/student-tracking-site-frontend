@@ -71,14 +71,14 @@ export const teacherSidebarData = [
         ],
     },
     {
-        title: "Settings",
-        url: "/dashboard/settings",
+        title: "Actions",
+        url: "/dashboard/students/actions",
         isActive: true,
-        icon: FaUserCircle,
+        icon: FaUsers,
         items: [
             {
-                title: "General",
-                url: "/dashboard/users/teachers/settings",
+                title: "Update Profile",
+                url: "/dashboard/students/actions",
             },
         ],
     },

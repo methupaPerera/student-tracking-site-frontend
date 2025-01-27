@@ -2,15 +2,16 @@
 
 import type { EventProp } from "@/types/dashboard";
 
+// Importing utilities.
 import { useState } from "react";
 import { motion } from "motion/react";
+import makeFetch from "@/lib/makeFetch";
 
 // Importing components.
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import EditEventModal from "../events/event-edit-modal";
-import makeFetch from "@/lib/makeFetch";
 import { toast } from "sonner";
 
 export default function CarouselCard({

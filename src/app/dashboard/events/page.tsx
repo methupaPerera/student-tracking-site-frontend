@@ -2,13 +2,14 @@
 
 import type { EventProp } from "@/types/dashboard";
 
+// Importing utilities.
+import { useEffect, useState } from "react";
+import makeFetch from "@/lib/makeFetch";
+
 // Importing components.
 import { Card } from "@/components/ui/card";
 import EventCreateCard from "@/components/dashboards/mini-components/events/event-create-card";
 import EventsCarousel from "@/components/dashboards/mini-components/carousel/events-carousel";
-import { useEffect, useState } from "react";
-import makeFetch from "@/lib/makeFetch";
-import Loader from "@/components/loader";
 
 export default function EventsPage() {
     const [events, setEvents] = useState<EventProp[]>([]);
