@@ -7,7 +7,7 @@
 - [General](#general) 
 - [Admin](#admin) 
 - [Teacher](#teacher) 
-- [Student Profile UI(#student-profile-ui) 
+- [Student Profile UI](#student-profile-ui) 
 - [Contact](#-contact)
 
 ## 📌 Project Scope
