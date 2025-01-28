@@ -110,16 +110,18 @@ const columns: ColumnDef<Student>[] = [
                                 Student Profile
                             </Button>
                         </Link>
-                        {session?.user.userType === "admin" && (
-                            <>
-                                <Button size="sm" variant="secondary">
-                                    Edit Details
-                                </Button>
-                                <Button size="sm" variant="destructive">
-                                    Clear Profile
-                                </Button>
-                            </>
-                        )}
+                        <Link
+                            className="w-full"
+                            href={`/dashboard/students/list/${student.user_id}`}
+                        >
+                            <Button
+                                className="w-full"
+                                size="sm"
+                                variant="outline"
+                            >
+                                Manage Details
+                            </Button>
+                        </Link>
                     </DropdownMenuContent>
                 </DropdownMenu>
             );

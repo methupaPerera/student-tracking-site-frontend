@@ -1,6 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import type { Grade } from "@/types/student";
+
+// Importing utilities.
+import { useEffect, useState } from "react";
+
+// Importing components.
 import {
     Select,
     SelectContent,
@@ -30,10 +35,8 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart";
-
-import { TrendingUp } from "lucide-react";
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
-import { Grade } from "@/types/student";
+import makeFetch from "@/lib/makeFetch";
 
 const chartData = [
     { term: "Term 1", marks: 186 },
@@ -50,11 +53,54 @@ const chartConfig = {
 
 export default function StudentPerformance({
     performanceData,
+    studentId,
 }: {
     performanceData: Grade[] | undefined;
+    studentId: string;
 }) {
     const [selectedTerm, setSelectedTerm] = useState("term1");
+    const [places, setPlaces] = useState<{
+        [key: string]: {
+            rank: number;
+            totalMarks: number;
+        };
+    }>({});
 
+    const processChartData = (grades: Grade[] | undefined) => {
+        if (!grades) return [];
+
+        const termTotals: Record<string, number> = {};
+
+        grades.forEach(({ term, marks, year }) => {
+            if (year != new Date().getFullYear()) return;
+
+            if (!termTotals[term]) {
+                termTotals[term] = 0;
+            }
+
+            termTotals[term] += Number(marks);
+        });
+
+        const chartData = Object.entries(termTotals).map(([term, total]) => ({
+            term: `Term ${term}`,
+            marks: total,
+        }));
+
+        return chartData;
+    };
+
+    const chartData = processChartData(performanceData);
+
+    useEffect(() => {
+        const fetchPlaces = async () => {
+            const res = await makeFetch(`/api/student/${studentId}/places`);
+            const data = await res.json();
+            setPlaces(data.rankings);
+        };
+
+        fetchPlaces();
+    }, []);
+    
     return (
         <div className="grid grid-cols-1 gap-4">
             <Card>
@@ -99,16 +145,44 @@ export default function StudentPerformance({
 
             <Card className="h-[300px] overflow-auto">
                 <CardHeader>
-                    <div className="-mb-1 flex flex-row justify-between items-center">
-                        <CardTitle>
-                            Term {selectedTerm[selectedTerm.length - 1]}{" "}
-                        </CardTitle>
+                    <CardTitle className="text-gray-800">
+                        Marks of Term {selectedTerm[selectedTerm.length - 1]}{" "}
+                    </CardTitle>
+                    <CardDescription className="mb-2">
+                        Subject-wise marks for the selected term.
+                    </CardDescription>
+
+                    <div className="flex justify-between items-center pt-2">
+                        <div className="font-medium bg-blue-100 px-3 py-1 rounded-full text-blue-600">
+                            <span>
+                                Total:{" "}
+                                {
+                                    chartData.filter(
+                                        (item) =>
+                                            item.term[item.term.length - 1] ===
+                                            selectedTerm[
+                                                selectedTerm.length - 1
+                                            ]
+                                    )[0]?.marks
+                                }
+                            </span>
+                        </div>
+
+                        <div className="font-medium text-red-600 bg-red-100 px-3 py-1 rounded-full">
+                            Place:{" "}
+                            {
+                                places?.[
+                                    "Term " +
+                                        selectedTerm[selectedTerm.length - 1]
+                                ]?.rank
+                            }
+                        </div>
 
                         <Select
                             onValueChange={setSelectedTerm}
                             defaultValue={selectedTerm}
                         >
-                            <SelectTrigger className="h-6 w-[180px]">
+                            <SelectTrigger className="w-[180px]">
                                 <SelectValue placeholder="Select term" />
                             </SelectTrigger>
 
@@ -125,12 +199,9 @@ export default function StudentPerformance({
                             </SelectContent>
                         </Select>
                     </div>
-                    <CardDescription>
-                        Subject-wise marks for the selected term.
-                    </CardDescription>
                 </CardHeader>
 
-                <CardContent>
+                <CardContent className="-mt-4">
                     <Table>
                         <TableHeader>
                             <TableRow>
@@ -142,7 +213,11 @@ export default function StudentPerformance({
                         </TableHeader>
                         <TableBody>
                             {performanceData
-                                ?.filter((item) => item.term === selectedTerm)
+                                ?.filter(
+                                    (item) =>
+                                        item.term ===
+                                        selectedTerm[selectedTerm.length - 1]
+                                )
                                 .map((item) => (
                                     <TableRow key={item.subject}>
                                         <TableCell>{item.subject}</TableCell>

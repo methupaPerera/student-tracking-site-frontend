@@ -18,12 +18,7 @@ export type Student = {
         grades: Grade[];
         attendance: Attendance;
     };
-    activities: {
-        activityName: string;
-        description: string;
-        date: string;
-        activityType: "academic" | "extracurricular";
-    }[];
+    activities: Activity[];
     createdAt: string;
     updatedAt: string;
 };
@@ -37,7 +32,14 @@ export type Attendance = {
 
 export type Grade = {
     subject: string;
-    marks: number;
+    marks: string;
     term: string;
     year: number;
+};
+
+export type Activity = {
+    activityName: string;
+    description: string;
+    date: string;
+    activityType: "academic" | "extracurricular";
 };

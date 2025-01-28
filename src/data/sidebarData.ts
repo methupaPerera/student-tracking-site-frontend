@@ -70,16 +70,4 @@ export const teacherSidebarData = [
             },
         ],
     },
-    {
-        title: "Actions",
-        url: "/dashboard/students/actions",
-        isActive: true,
-        icon: FaUsers,
-        items: [
-            {
-                title: "Update Profile",
-                url: "/dashboard/students/actions",
-            },
-        ],
-    },
 ];

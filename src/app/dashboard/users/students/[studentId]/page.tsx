@@ -138,6 +138,7 @@ export default function Students({
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <StudentPerformance
                             performanceData={student?.academicRecords.grades}
+                            studentId={student?.user_id}
                         />
 
                         <div className="ml-24">
