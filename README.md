@@ -118,5 +118,5 @@ The **Student Tracking System** is designed to efficiently manage and track stud
 
 ## 📞 Contact
 
-For any queries or issues, contact me at methupaperera48@gmail.com or send whatsapp message at +94 76 943 7742.
+For any queries or issues, contact me at methupaperera48@gmail.com or send whatsapp message at `+94 76 943 7742`
 ```
