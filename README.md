@@ -3,7 +3,7 @@
 ## 🧭 Navigation 
 - [Project Scope](#-project-scope) 
 - [Main Features](#-main-features) 
-- [Technologies Used](#-technologies-used) - [User Interfaces](#-user-interfaces) 
+- [Technologies Used](#-technologies-used)  - [User Interfaces](#-user-interfaces) 
 - [General](#general) 
 - [Admin](#admin) 
 - [Teacher](#teacher) 
