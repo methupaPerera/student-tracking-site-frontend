@@ -1,5 +1,7 @@
 # Student Tracking System
 
+Navigation - [Project Scope](#-project-scope) - [Main Features](#-main-features) - [Technologies Used](#-technologies-used) - [User Interfaces](#-user-interfaces) - [General](#general) - [Admin](#admin) - [Teacher](#teacher) - [Student Profile UI](#student-profile-ui) - [Contact](#-contact)
+
 ## 📌 Project Scope
 
 The **Student Tracking System** is designed to efficiently manage and track student records, attendance, and performance. It provides a user-friendly interface for school administrators and teachers to interact with relevant data.
