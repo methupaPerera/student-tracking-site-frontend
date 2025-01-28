@@ -25,16 +25,16 @@ The **Student Tracking System** is designed to efficiently manage and track stud
 
 ## 🎨 User Interfaces
 
-> **Note:** The required UIs for your task have been made, and some of my own ideas have been included. Some of them are still under development.
+> **Note:** The required UIs for your task have been made, and some of my own ideas have been included. One or two of them are still under development due to time constraints.
 
 ### General
 
--   **Login Page**: Provides secure authentication using JWT.
+-   **Login Page**: Provides secure role based authentication using JWT.
 
 ### Admin
 
 -   **Dashboard**: Displays an overview of students, teachers, attendance, and school events providing some general statistics with charts and tables.
-    > **Note:** Some details are not real data in this dashboard UI. I just wanted to give you the idea what I wanted to do.
+    > **Note:** Some details are not fetched from the backend.
 -   **Events Page**: Allows administrators to create, manage, and schedule school events.
 -   **Students Page**: Allows administrators to register, edit, and manage student profiles.
 -   **Teachers Page**: Allows administrators to register, edit, and manage teacher profiles.
@@ -45,14 +45,16 @@ The **Student Tracking System** is designed to efficiently manage and track stud
 
 -   **Student List Page**: Allows teachers to view and manage student profiles.
 -   **Attendance Tracking**: Enables marking and reviewing student attendance records.
--   **Actions**: This UI let's teachers to add extra curricular activities to the student profile and manage their exam marks for terms.
+-   **Manage Details**: This UI let's teachers to add extra curricular activities to the student profile and manage their exam marks for terms.
 
-> **Note:** As teachers should mark attendance for their students, they can only access this feature.
+> **Note:** As teachers should mark attendance for their students, they can only access this features.
+
+> **Try it:** You can test marking student attendance by clicking the checkboxes and saving it. If there are no attendance data for a day, the table status column will be empty.
 
 ### Student Profile UI
 
 -   This UI has 3 tabs which shows the student personal information, attendance and performance.
--   The performance tab shows the student academic performance across terms and their extra curricular activities.
+-   The performance tab shows the student academic performance across terms, their ranking in class and their extra curricular activities.
 -   The attendance tab shows the student attendance rate, which could be useful for ALs. (80%)
 
 ## 📞 Contact
