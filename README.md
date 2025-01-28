@@ -1,6 +1,14 @@
 # Student Tracking System
 
-Navigation - [Project Scope](#-project-scope) - [Main Features](#-main-features) - [Technologies Used](#-technologies-used) - [User Interfaces](#-user-interfaces) - [General](#general) - [Admin](#admin) - [Teacher](#teacher) - [Student Profile UI](#student-profile-ui) - [Contact](#-contact)
+## 🧭 Navigation 
+- [Project Scope](#-project-scope) 
+- [Main Features](#-main-features) 
+- [Technologies Used](#-technologies-used) - [User Interfaces](#-user-interfaces) 
+- [General](#general) 
+- [Admin](#admin) 
+- [Teacher](#teacher) 
+- [Student Profile UI(#student-profile-ui) 
+- [Contact](#-contact)
 
 ## 📌 Project Scope
 
