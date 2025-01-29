@@ -2,6 +2,7 @@
 
 ## 🧭 Navigation
 
+-   [Guide - You should read this. :)](#guide-for-exploring-the-features)
 -   [Project Scope](#-project-scope)
 -   [Main Features](#-main-features)
 -   [Technologies Used](#-technologies-used)
@@ -24,7 +25,7 @@ The **Student Tracking System** is designed to efficiently manage and track stud
 ## 🚀 Main Features
 
 -   Attendance tracking.
--   Student performance and grades tracking.
+-   Student performance, activities and grades tracking.
 -   Reporting and analytics dashboard.
 -   Students, Teacher & Admins Management for Admins.
 -   User authentication and role-based access.
@@ -120,6 +121,27 @@ The **Student Tracking System** is designed to efficiently manage and track stud
 │   ├── types/                # Type definitions for typescript.
 ```
 
+## Guide for exploring the features.
+
+> **Note:** Use a desktop for better experience.
+
+1. Log in using the guest login buttons.
+2. Once logged in as an admin, you will see a stunning dashboard.
+3. Click the buttons on the dashboard cards to navigate through different pages designed for admins.
+4. Visit the events page, which includes carousels, forms, and modals for creating, editing, and managing events.
+5. Check out the students' page, click the action button, and then navigate to the student profile page. (Mock data is available for a student with the email 'nadeeshaperera@example.com.')
+6. Admins can register, edit, and manage students, teachers, and other admins.
+7. Explore the other admin-related pages accordingly.
+8. After that, log out and log in as a teacher.
+9. Teachers can view student details, add term test marks and activities, and mark attendance.
+10. On the attendance marking page, teachers can select a date and mark present students using checkboxes.
+11. You can test the attendance feature by selecting a date and clicking the 'Mark Attendance' button. It is fully functional with the backend.
+12. On the student list page, click the 'Manage Details' button to update the student profile, including adding term test marks and activities.
+
 ## 📞 Contact
 
 For any queries or issues, contact me at methupaperera48@gmail.com or send whatsapp message at `+94 76 943 7742`
+
+> Check out my portfolio website [here...](https://methupa.vercel.app)
+
+> Also check out my github profile [here...](https://github.com/methupaPerera)
