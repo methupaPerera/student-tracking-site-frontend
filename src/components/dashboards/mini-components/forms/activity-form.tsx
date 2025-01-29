@@ -1,4 +1,9 @@
+import type { Activity } from "@/types/student";
+
+// Importing utilities.
 import { useState, useEffect } from "react";
+
+// Importing components.
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,7 +15,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Activity } from "@/types/student";
 
 export default function ActivitiesForm({
     onSubmit,

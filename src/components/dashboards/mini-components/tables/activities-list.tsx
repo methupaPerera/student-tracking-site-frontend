@@ -1,3 +1,6 @@
+import type { Activity } from "@/types/student";
+
+// Importing components.
 import { Button } from "@/components/ui/button";
 import {
     Table,
@@ -7,7 +10,6 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Activity } from "@/types/student";
 
 export default function ActivitiesList({
     activities,

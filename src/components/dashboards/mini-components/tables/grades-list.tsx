@@ -1,3 +1,6 @@
+import type { Grade } from "@/types/student";
+
+// Importing components.
 import { Button } from "@/components/ui/button";
 import {
     Table,
@@ -7,7 +10,6 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Grade } from "@/types/student";
 
 export default function GradesList({ grades, onEdit, onDelete }: {
     grades: Grade[];

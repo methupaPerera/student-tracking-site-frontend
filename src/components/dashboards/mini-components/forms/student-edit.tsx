@@ -1,6 +1,6 @@
 "use client";
 
-import type { Student } from "@/types/student";
+import type { Student, StudentData } from "@/types/student";
 
 // Importing utilities.
 import { useState } from "react";
@@ -24,25 +24,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { FaPlus } from "react-icons/fa6";
 import { toast } from "sonner";
-
-interface StudentData {
-    email: string;
-    name: string;
-    gender: "male" | "female";
-    address: string;
-    class: string;
-    dateOfBirth: string;
-    phone: string;
-    guardianInfo: {
-        guardianName: string;
-        guardianContact: {
-            email: string;
-            phone: string;
-        };
-    };
-}
 
 export default function StudentEditForm({ student }: { student: Student }) {
     const [formData, setFormData] = useState<StudentData>({

@@ -15,6 +15,8 @@
 
 > **Note:** You can read the documentation of backend API [here](https://github.com/methupaPerera/student-tracking-site-backend)...
 
+> **Just letting you know:** Basic security features are implemented but not tested well due to time constraints.
+
 ## 📌 Project Scope
 
 The **Student Tracking System** is designed to efficiently manage and track student records, attendance, and performance. It provides a user-friendly interface for school administrators and teachers to interact with relevant data.
@@ -24,6 +26,7 @@ The **Student Tracking System** is designed to efficiently manage and track stud
 -   Attendance tracking.
 -   Student performance and grades tracking.
 -   Reporting and analytics dashboard.
+-   Students, Teacher & Admins Management for Admins.
 -   User authentication and role-based access.
 -   Protected routes both in frontend and backend.
 

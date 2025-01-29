@@ -1,6 +1,6 @@
 "use client";
 
-import type { Teacher } from "@/types/teacher";
+import type { Teacher, TeacherData } from "@/types/teacher";
 
 // Importing utilities.
 import { useState } from "react";
@@ -18,17 +18,6 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { toast } from "sonner";
-
-interface TeacherData {
-    email: string;
-    name: string;
-    phone: string;
-    inChargeOf: string;
-    subjects: {
-        subjectName: string;
-        classes: string[];
-    }[];
-}
 
 export default function TeacherEditForm({ teacher }: { teacher: Teacher }) {
     const [formData, setFormData] = useState<TeacherData>({

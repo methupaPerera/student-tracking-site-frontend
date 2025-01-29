@@ -43,3 +43,20 @@ export type Activity = {
     date: string;
     activityType: "academic" | "extracurricular";
 };
+
+export interface StudentData {
+    email: string;
+    name: string;
+    gender: "male" | "female";
+    address: string;
+    class: string;
+    dateOfBirth: string;
+    phone: string;
+    guardianInfo: {
+        guardianName: string;
+        guardianContact: {
+            email: string;
+            phone: string;
+        };
+    };
+}

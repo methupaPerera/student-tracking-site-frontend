@@ -1,5 +1,7 @@
 "use client";
 
+import type { StudentData } from "@/types/student";
+
 // Importing utilities.
 import { useState } from "react";
 import makeFetch from "@/lib/makeFetch";
@@ -22,25 +24,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { FaPlus } from "react-icons/fa6";
 import { toast } from "sonner";
-
-interface StudentData {
-    email: string;
-    name: string;
-    gender: "male" | "female";
-    address: string;
-    class: string;
-    dateOfBirth: string;
-    phone: string;
-    guardianInfo: {
-        guardianName: string;
-        guardianContact: {
-            email: string;
-            phone: string;
-        };
-    };
-}
+import { FaPlus } from "react-icons/fa6";
 
 export default function StudentRegistrationForm() {
     const [formData, setFormData] = useState<StudentData>({

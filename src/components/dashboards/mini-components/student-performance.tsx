@@ -4,6 +4,7 @@ import type { Grade } from "@/types/student";
 
 // Importing utilities.
 import { useEffect, useState } from "react";
+import makeFetch from "@/lib/makeFetch";
 
 // Importing components.
 import {
@@ -28,7 +29,6 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-
 import {
     ChartConfig,
     ChartContainer,
@@ -36,7 +36,6 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart";
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
-import makeFetch from "@/lib/makeFetch";
 
 const chartData = [
     { term: "Term 1", marks: 186 },

@@ -1,6 +1,6 @@
 "use client";
 
-import type { Student } from "@/types/student";
+import type { Admin } from "@/types/admin";
 
 // Importing utilities.
 import { useState } from "react";
@@ -17,14 +17,7 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuLabel,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
     Table,
@@ -34,14 +27,12 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import Link from "next/link";
-import StudentRegistrationForm from "../forms/student-register";
-import StudentEditForm from "../forms/student-edit";
+import AdminRegistrationForm from "../forms/admin-register";
 
-export const columns: ColumnDef<Student>[] = [
+export const columns: ColumnDef<Admin>[] = [
     {
         accessorKey: "user_id",
-        header: "Student Id",
+        header: "Admin Id",
         cell: ({ row }) => <div>{row.getValue("user_id")}</div>,
     },
     {
@@ -52,13 +43,6 @@ export const columns: ColumnDef<Student>[] = [
         ),
     },
     {
-        accessorKey: "class",
-        header: "Class",
-        cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("class")}</div>
-        ),
-    },
-    {
         accessorKey: "email",
         header: ({ column }) => <div className="capitalize">Email</div>,
         cell: ({ row }) => (
@@ -66,77 +50,26 @@ export const columns: ColumnDef<Student>[] = [
         ),
     },
     {
-        accessorKey: "dateOfBirth",
-        header: () => <div className="text-right">Date Of Birth</div>,
-        cell: ({ row }) => {
-            return (
-                <div className="text-right font-medium">
-                    {new Date(row.getValue("dateOfBirth")).toLocaleDateString(
-                        "en-CA"
-                    )}
-                </div>
-            );
-        },
-    },
-    {
-        id: "actions",
-        enableHiding: false,
-        cell: ({ row }) => {
-            const student = row.original;
-
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                        align="end"
-                        className="w-36 flex flex-col -mt-1 gap-1.5"
-                    >
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <Link
-                            className="w-full"
-                            href={`/dashboard/users/students/${student.user_id}`}
-                        >
-                            <Button
-                                className="w-full"
-                                size="sm"
-                                variant="secondary"
-                            >
-                                Student Profile
-                            </Button>
-                        </Link>
-
-                        <StudentEditForm student={student} />
-
-                        <Button size="sm" variant="destructive">
-                            Clear Profile
-                        </Button>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            );
-        },
+        accessorKey: "phone",
+        header: ({ column }) => <div>Phone</div>,
+        cell: ({ row }) => (
+            <div className="lowercase">{row.getValue("phone")}</div>
+        ),
     },
 ];
 
-export default function StudentsTable({ data }: { data: Student[] }) {
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+export default function AdminsTable({ data }: { data: Admin[] }) {
     const [rowSelection, setRowSelection] = useState({});
 
     const table = useReactTable({
         data,
         columns,
-        onColumnFiltersChange: setColumnFilters,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         onRowSelectionChange: setRowSelection,
         state: {
-            columnFilters,
             rowSelection,
         },
     });
@@ -160,7 +93,7 @@ export default function StudentsTable({ data }: { data: Student[] }) {
                     className="w-96"
                 />
 
-                <StudentRegistrationForm />
+                <AdminRegistrationForm />
             </div>
 
             <div className="rounded-md border">

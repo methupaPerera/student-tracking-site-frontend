@@ -12,3 +12,14 @@ export type Teacher = {
     createdAt: Date;
     updatedAt: Date;
 };
+
+export interface TeacherData {
+    email: string;
+    name: string;
+    phone: string;
+    inChargeOf: string;
+    subjects: {
+        subjectName: string;
+        classes: string[];
+    }[];
+}

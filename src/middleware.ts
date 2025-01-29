@@ -13,6 +13,16 @@ export async function middleware(req: NextRequest) {
         return NextResponse.redirect(new URL("/login", req.url));
     }
 
+    if (pathname === "/" && session.user.userType === "teacher") {
+        return NextResponse.redirect(
+            new URL("/dashboard/students/attendance", req.url)
+        );
+    }
+
+    if (pathname === "/" && session.user.userType === "admin") {
+        return NextResponse.redirect(new URL("/dashboard", req.url));
+    }
+
     if (pathname === "/dashboard" && !session) {
         return NextResponse.redirect(new URL("/login", req.url));
     }

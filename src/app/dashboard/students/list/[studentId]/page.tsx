@@ -1,6 +1,12 @@
 "use client";
 
+import type { Activity, Grade, Student } from "@/types/student";
+
+// Importing utilities.
 import { use, useEffect, useState } from "react";
+import makeFetch from "@/lib/makeFetch";
+
+// Importing components.
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -8,8 +14,6 @@ import GradesForm from "@/components/dashboards/mini-components/forms/grades-for
 import GradesList from "@/components/dashboards/mini-components/tables/grades-list";
 import ActivitiesForm from "@/components/dashboards/mini-components/forms/activity-form";
 import ActivitiesList from "@/components/dashboards/mini-components/tables/activities-list";
-import { Activity, Grade, Student } from "@/types/student";
-import makeFetch from "@/lib/makeFetch";
 import { toast } from "sonner";
 
 export default function StudentRecordsManager({
