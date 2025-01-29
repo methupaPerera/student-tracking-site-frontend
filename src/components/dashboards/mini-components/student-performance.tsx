@@ -37,12 +37,6 @@ import {
 } from "@/components/ui/chart";
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 
-const chartData = [
-    { term: "Term 1", marks: 186 },
-    { term: "Term 2", marks: 305 },
-    { term: "Term 3", marks: 237 },
-];
-
 const chartConfig = {
     marks: {
         label: "All Marks",
@@ -99,7 +93,7 @@ export default function StudentPerformance({
 
         fetchPlaces();
     }, []);
-    
+
     return (
         <div className="grid grid-cols-1 gap-4">
             <Card>
@@ -142,7 +136,7 @@ export default function StudentPerformance({
                 </CardContent>
             </Card>
 
-            <Card className="h-[300px] overflow-auto">
+            <Card className="h-[350px] overflow-auto">
                 <CardHeader>
                     <CardTitle className="text-gray-800">
                         Marks of Term {selectedTerm[selectedTerm.length - 1]}{" "}
@@ -152,36 +146,42 @@ export default function StudentPerformance({
                     </CardDescription>
 
                     <div className="flex justify-between items-center pt-2">
-                        <div className="font-medium bg-blue-100 px-3 py-1 rounded-full text-blue-600">
-                            <span>
-                                Total:{" "}
+                        <div className="flex flex-col gap-1 mt-1">
+                            <div className="font-medium text-xs bg-blue-100 px-3 py-1 rounded-full text-blue-600">
+                                <span>
+                                    Total:{" "}
+                                    {
+                                        chartData.filter(
+                                            (item) =>
+                                                item.term[
+                                                    item.term.length - 1
+                                                ] ===
+                                                selectedTerm[
+                                                    selectedTerm.length - 1
+                                                ]
+                                        )[0]?.marks
+                                    }
+                                </span>
+                            </div>
+
+                            <div className="font-medium text-red-600 text-xs w-fit bg-red-100 px-3 py-1 rounded-full">
+                                Place:{" "}
                                 {
-                                    chartData.filter(
-                                        (item) =>
-                                            item.term[item.term.length - 1] ===
+                                    places?.[
+                                        "Term " +
                                             selectedTerm[
                                                 selectedTerm.length - 1
                                             ]
-                                    )[0]?.marks
+                                    ]?.rank
                                 }
-                            </span>
-                        </div>
-
-                        <div className="font-medium text-red-600 bg-red-100 px-3 py-1 rounded-full">
-                            Place:{" "}
-                            {
-                                places?.[
-                                    "Term " +
-                                        selectedTerm[selectedTerm.length - 1]
-                                ]?.rank
-                            }
+                            </div>
                         </div>
 
                         <Select
                             onValueChange={setSelectedTerm}
                             defaultValue={selectedTerm}
                         >
-                            <SelectTrigger className="w-[180px]">
+                            <SelectTrigger className="w-[100px]">
                                 <SelectValue placeholder="Select term" />
                             </SelectTrigger>
 

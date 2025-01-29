@@ -9,7 +9,7 @@ export function EventsTable({ eventsData }: { eventsData: EventProp[] }) {
     return (
         <Card className="mt-4">
             <CardHeader className="py-4 flex flex-row items-center justify-between">
-                <CardTitle className="text-base font-medium">
+                <CardTitle className="text-lg font-semibold">
                     Upcoming Events
                 </CardTitle>
                 <Link href="/dashboard/events">
@@ -20,18 +20,18 @@ export function EventsTable({ eventsData }: { eventsData: EventProp[] }) {
             </CardHeader>
             <CardContent className="grid grid-cols-1 gap-3">
                 {eventsData.map((event) => (
-                    <Card key={event.event_id}>
-                        <CardHeader className="py-1 flex flex-row items-center justify-between bg-gray-50">
-                            <p className="text-base font-semibold text-gray-800">
+                    <Card key={event.event_id} className="pb-2.5">
+                        <CardHeader className="pt-3 pb-2 bg-gray-50">
+                            <p className="-mb-1 text-base font-semibold text-gray-800">
                                 {event.title}
                             </p>
-                            <p className="text-xs text-gray-500 font-medium bg-gray-100 px-2 py-1 rounded-full">
+                            <p className="-ml-1 w-fit text-xs text-gray-500 font-medium bg-gray-100 px-2 py-1 rounded-full">
                                 {new Date(event.date).toLocaleDateString(
                                     "en-CA"
                                 )}
                             </p>
                         </CardHeader>
-                        <CardContent className="pt-1 pb-2 text-gray-600 text-sm">
+                        <CardContent className="py-2 text-gray-600 text-sm">
                             <p className="line-clamp-2">{event.description}</p>
                         </CardContent>
                     </Card>

@@ -193,9 +193,9 @@ export default function MarkAttendance() {
 
     return (
         <div className="p-4">
-            <div className="flex w-full gap-4">
+            <div className="flex md:flex-row flex-col w-full gap-4">
                 <div className="w-full">
-                    <div className="px-1 flex justify-between items-center mb-3 text-sm text-gray-600">
+                    <div className="px-1 flex md:flex-row flex-col justify-between md:items-center mb-3 text-sm text-gray-600">
                         <p>
                             Attendance -{" "}
                             {new Date(date).toLocaleDateString("en-CA")}

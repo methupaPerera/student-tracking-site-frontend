@@ -12,18 +12,14 @@ export default function AttendanceChart({
     chartData: DashboardAttendanceProp[];
 }) {
     return (
-        <Card className="mt-4">
+        <Card className="mt-4 h-fit">
             <CardHeader>
                 <CardTitle className="flex justify-between items-center">
-                    <p>Attendance</p>
-                    <div className="flex flex-col gap-1">
-                        <p className="bg-yellow-100 text-xs text-yellow-600 rounded-full w-20 pt-1 text-center pb-[3px]">
-                            Students
-                        </p>
-                        <p className="bg-gray-100 text-xs text-gray-600 rounded-full w-20 pt-1 text-center pb-[3px]">
-                            This Week
-                        </p>
-                    </div>
+                    <p className="text-gray-800">Attendance</p>
+
+                    <p className="bg-gray-100 text-xs text-gray-600 rounded-full w-20 pt-1 text-center pb-[3px]">
+                        This Week
+                    </p>
                 </CardTitle>
             </CardHeader>
 

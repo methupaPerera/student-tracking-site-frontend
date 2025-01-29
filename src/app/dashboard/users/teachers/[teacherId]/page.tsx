@@ -9,6 +9,7 @@ import makeFetch from "@/lib/makeFetch";
 // Importing components.
 import Loader from "@/components/loader";
 import { Book, CalendarClock, Mail, Phone, User } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
 export default function TeacherInfoAdmin({
     params,
@@ -32,7 +33,7 @@ export default function TeacherInfoAdmin({
     if (!teacher) return <Loader />;
 
     return (
-        <div className="bg-white mt-12 shadow-lg rounded-lg p-6 max-w-md mx-auto">
+        <Card className="p-6 m-6">
             <div className="flex items-center mb-6">
                 <div className="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center mr-4">
                     <User size={32} />
@@ -79,6 +80,6 @@ export default function TeacherInfoAdmin({
                     {new Date(teacher.createdAt).toLocaleDateString("en-CA")}
                 </div>
             </div>
-        </div>
+        </Card>
     );
 }

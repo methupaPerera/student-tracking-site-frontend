@@ -4,7 +4,6 @@ import type { Student } from "@/types/student";
 
 // Importing utilities.
 import { useEffect, useState } from "react";
-import { useSession } from "@/context/Session";
 import makeFetch from "@/lib/makeFetch";
 
 // Importing components.
@@ -82,7 +81,6 @@ const columns: ColumnDef<Student>[] = [
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => {
-            const session = useSession();
             const student = row.original;
 
             return (

@@ -14,7 +14,6 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import StudentAttendance from "@/components/dashboards/mini-components/tables/student-attendance";
 import StudentPerformance from "@/components/dashboards/mini-components/student-performance";
 import Loader from "@/components/loader";
-import { User, GraduationCap, Calendar } from "lucide-react";
 
 export default function Students({
     params,
@@ -79,22 +78,16 @@ export default function Students({
             </div>
 
             <Tabs defaultValue="performance" className="w-full">
-                <TabsList className="grid grid-cols-3 gap-2 mb-4">
-                    <TabsTrigger value="personal" className="flex gap-2 px-2">
-                        <User size={16} />
+                <TabsList className="grid grid-cols-3 mb-4">
+                    <TabsTrigger value="personal">
                         <span className="text-sm">Personal</span>
                     </TabsTrigger>
 
-                    <TabsTrigger
-                        value="performance"
-                        className="flex gap-2 px-2"
-                    >
-                        <GraduationCap size={16} />
+                    <TabsTrigger value="performance">
                         <span className="text-sm">Performance</span>
                     </TabsTrigger>
 
-                    <TabsTrigger value="attendance" className="flex gap-2 px-2">
-                        <Calendar size={16} />
+                    <TabsTrigger value="attendance">
                         <span className="text-sm">Attendance</span>
                     </TabsTrigger>
                 </TabsList>
@@ -142,7 +135,7 @@ export default function Students({
                         />
 
                         <div className="ml-24">
-                            <h2 className="-ml-[92px] text-2xl font-semibold pt-2 pb-6">
+                            <h2 className="-ml-[92px] text-gray-800 text-2xl font-semibold pt-2 pb-6">
                                 Academic & Extra Curricular
                             </h2>
 
@@ -181,7 +174,7 @@ export default function Students({
                 </TabsContent>
 
                 <TabsContent value="attendance">
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <StudentAttendance
                             attendanceData={student?.academicRecords.attendance}
                         />

@@ -74,7 +74,9 @@ export default function StudentAttendance({
             0
         );
 
-        const percentage = totalDays > 0 ? (presentDays / totalDays) * 100 : 0;
+        const percentage = Number(
+            (totalDays > 0 ? (presentDays / totalDays) * 100 : 0).toFixed(2)
+        );
 
         setTotalSchoolDays(totalDays);
         setTotalPresentDays(presentDays);
