@@ -10,6 +10,7 @@ import makeFetch from "@/lib/makeFetch";
 import { Card } from "@/components/ui/card";
 import EventCreateCard from "@/components/dashboards/mini-components/events/event-create-card";
 import EventsCarousel from "@/components/dashboards/mini-components/carousel/events-carousel";
+import Loader from "@/components/loader";
 
 export default function EventsPage() {
     const [events, setEvents] = useState<EventProp[]>([]);
@@ -28,11 +29,13 @@ export default function EventsPage() {
 
             <div className="flex flex-col md:flex-row gap-4">
                 <div className="w-full md:w-2/3">
-                    {events.length > 0 && (
+                    {events.length > 0 ? (
                         <EventsCarousel
                             events={events}
                             eventsCount={events.length}
                         />
+                    ) : (
+                        <Loader />
                     )}
                 </div>
 
@@ -43,11 +46,13 @@ export default function EventsPage() {
 
             <div>
                 <h2 className="text-lg font-medium my-3">Past Events</h2>
-                {events.length > 0 && (
+                {events.length > 0 ? (
                     <EventsCarousel
                         events={events}
                         eventsCount={events.length}
                     />
+                ) : (
+                    <Loader />
                 )}
             </div>
         </div>
